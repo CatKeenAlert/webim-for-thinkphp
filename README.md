@@ -8,7 +8,7 @@ Usage
 
 1. Webim目录上传ThinkPHP项目根目录下;
 
-2. 项目数据库创建schema/webim.sql中的两张表;
+2. 项目数据库创建Schema/webim.sql中的两张表;
 
 3. 配置Webim/Conf/config.php
 
@@ -19,7 +19,7 @@ Usage
 ThinkIM.class.php
 ================
 
-项目集成接口类, 用户需参考示例代码，实现下述接口:
+项目集成接口类, 用户参考示例代码，实现下述接口:
 
 1. getUid() 获取当前登录用户UID
 
@@ -40,5 +40,5 @@ ThinkIM.class.php
 Lib/Action/ApiAction.class.php
 ==============================
 
-浏览器Ajax API接口
+浏览器AJAX接口
 
