@@ -1,0 +1,42 @@
+[Mon Nov 04 20:46:17 2013] [error] [client ::1] PHP Fatal error:  Access level to WebimAction::$config must be protected (as in class Action) or weaker in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 110, referer: http://localhost/
+[Mon Nov 04 20:46:23 2013] [error] [client ::1] PHP Fatal error:  Access level to WebimAction::$config must be protected (as in class Action) or weaker in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 110
+[Mon Nov 04 20:47:08 2013] [error] [client ::1] PHP Fatal error:  Access level to WebimAction::$config must be protected (as in class Action) or weaker in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 110
+[Mon Nov 04 20:47:10 2013] [error] [client ::1] PHP Fatal error:  Access level to WebimAction::$config must be protected (as in class Action) or weaker in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 110
+[Mon Nov 04 21:02:42 2013] [error] [client ::1] PHP Parse error:  parse error, expecting `')'' in /Users/erylee/WebServer/Conf/config.php on line 14
+[Tue Nov 05 14:58:30 2013] [error] [client ::1] PHP Parse error:  parse error in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 407, referer: http://localhost/
+[Tue Nov 05 14:58:39 2013] [error] [client ::1] PHP Parse error:  parse error in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 407
+[Tue Nov 05 14:58:57 2013] [error] [client ::1] PHP Fatal error:  Cannot redeclare WebimAction::webim_get_rooms() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 442
+[Tue Nov 05 14:59:44 2013] [error] [client ::1] PHP Fatal error:  Class 'WebimDB' not found in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 32
+[Tue Nov 05 15:01:33 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_set_visitor() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 49
+[Tue Nov 05 15:02:00 2013] [error] [client ::1] PHP Fatal error:  Class 'WebimClient' not found in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 55
+[Wed Nov 06 09:04:51 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_buddies() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 378, referer: http://localhost/
+[Wed Nov 06 09:04:55 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_buddies() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 378, referer: http://localhost/
+[Wed Nov 06 09:07:11 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_buddies() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 379, referer: http://localhost/
+[Wed Nov 06 09:07:29 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_buddies() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 379, referer: http://localhost/
+[Wed Nov 06 09:07:57 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_buddies() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 379, referer: http://localhost/
+[Wed Nov 06 09:08:06 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_history() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 326, referer: http://localhost/
+[Wed Nov 06 09:09:08 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_buddies() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 379, referer: http://localhost/
+[Wed Nov 06 09:27:26 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_history() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 326, referer: http://localhost/
+[Wed Nov 06 09:37:05 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_buddies() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 379, referer: http://localhost/
+[Wed Nov 06 09:37:40 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_history() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 326, referer: http://localhost/
+[Wed Nov 06 09:46:34 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_history() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 326, referer: http://localhost/
+[Wed Nov 06 09:59:39 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function webim_get_history() in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 326
+[Wed Nov 06 10:52:24 2013] [error] [client ::1] PHP Parse error:  parse error in /Users/erylee/WebServer/ThinkWebim.php on line 7
+[Wed Nov 06 12:30:50 2013] [error] [client ::1] PHP Fatal error:  Class 'HistoryModel' not found in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 151, referer: http://localhost/
+[Wed Nov 06 12:31:03 2013] [error] [client ::1] PHP Fatal error:  Class 'HistoryModel' not found in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 151, referer: http://localhost/
+[Wed Nov 06 15:38:45 2013] [error] [client ::1] PHP Warning:  require_once(./ThinkWebim.php): failed to open stream: No such file or directory in /Users/erylee/WebServer/index.php on line 14
+[Wed Nov 06 15:38:45 2013] [error] [client ::1] PHP Fatal error:  require_once(): Failed opening required './ThinkWebim.php' (include_path='.:') in /Users/erylee/WebServer/index.php on line 14
+[Wed Nov 06 15:39:25 2013] [error] [client ::1] PHP Fatal error:  Call to undefined method ThinkIM::_setVisitor() in /Users/erylee/WebServer/ThinkIM.php on line 29, referer: http://localhost/
+[Wed Nov 06 15:47:09 2013] [error] [client ::1] PHP Fatal error:  Call to undefined method ThinkIM::_setVisitor() in /Users/erylee/WebServer/ThinkIM.php on line 29, referer: http://localhost/
+[Wed Nov 06 15:47:17 2013] [error] [client ::1] PHP Fatal error:  Call to undefined method ThinkIM::_setVisitor() in /Users/erylee/WebServer/ThinkIM.php on line 29, referer: http://localhost/
+[Wed Nov 06 15:50:10 2013] [error] [client ::1] PHP Fatal error:  Call to a member function isLogin() on a non-object in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 83, referer: http://localhost/
+[Wed Nov 06 15:53:12 2013] [error] [client ::1] PHP Fatal error:  Class 'HistoryModel' not found in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 99
+[Wed Nov 06 21:24:14 2013] [error] [client ::1] PHP Fatal error:  Call to private method ThinkIM::getRooms() from context 'WebimAction' in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 149
+[Wed Nov 06 21:25:01 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function select() in /Users/erylee/WebServer/Lib/Model/SettingModel.class.php on line 21
+[Wed Nov 06 21:26:49 2013] [error] [client ::1] PHP Fatal error:  Using $this when not in object context in /Users/erylee/WebServer/Lib/Model/SettingModel.class.php on line 19
+[Wed Nov 06 21:27:20 2013] [error] [client ::1] PHP Fatal error:  Call to a member function getBuddiesByIds() on a non-object in /Users/erylee/WebServer/Lib/Action/WebimAction.class.php on line 346, referer: http://localhost/
+[Wed Nov 06 21:29:01 2013] [error] [client ::1] PHP Fatal error:  __clone method called on non-object in /Users/erylee/WebServer/ThinkIM.php on line 53, referer: http://localhost/
+[Wed Nov 06 21:29:04 2013] [error] [client ::1] PHP Fatal error:  __clone method called on non-object in /Users/erylee/WebServer/ThinkIM.php on line 53, referer: http://localhost/
+[Wed Nov 06 21:31:37 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function _newVisitor() in /Users/erylee/WebServer/ThinkIM.php on line 29, referer: http://localhost/
+[Wed Nov 06 21:31:41 2013] [error] [client ::1] PHP Fatal error:  Call to undefined function _newVisitor() in /Users/erylee/WebServer/ThinkIM.php on line 29, referer: http://localhost/
+[Wed Nov 06 21:45:49 2013] [error] [client ::1] Directory index forbidden by Options directive: /Users/erylee/WebServer/

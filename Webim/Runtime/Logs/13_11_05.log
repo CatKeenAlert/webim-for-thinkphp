@@ -1,0 +1,350 @@
+[ 2013-11-05T14:58:30+08:00 ] 0.0.0.0 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001320s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001484s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.009282s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009431s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000799s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.001008s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000633s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.001108s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003860s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.001000s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001071s ]
+
+[ 2013-11-05T14:58:30+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000985s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001050s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000306s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000347s ]
+
+[ 2013-11-05T14:58:39+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000568s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000657s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000297s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000361s ]
+
+[ 2013-11-05T14:58:57+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000582s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000675s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000363s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000423s ]
+
+[ 2013-11-05T14:59:18+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000414s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000523s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000267s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000317s ]
+
+[ 2013-11-05T14:59:44+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001198s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001479s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000461s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000567s ]
+
+[ 2013-11-05T15:01:33+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000510s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000675s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000405s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000455s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T15:02:00+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000475s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000594s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000310s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000351s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T15:02:40+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000645s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000781s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000337s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000368s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T15:02:44+08:00 ] 0.0.0.0 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000240s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000282s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.003494s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.003549s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000186s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000188s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000138s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000269s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000887s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000355s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000393s ]
+
+[ 2013-11-05T15:02:44+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000423s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000482s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000276s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000313s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T15:02:45+08:00 ] 0.0.0.0 /Webim/online?_=1383634964083&buddy_ids=&room_ids=&show=available&stranger_ids=
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000745s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000844s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000454s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000532s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 185 行.
+NOTIC: [8] Undefined property: stdClass::$blocked_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 188 行.
+NOTIC: [8] Undefined property: stdClass::$temporary_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 202 行.
+NOTIC: [8] Undefined property: stdClass::$status /Users/erylee/WebServer/Common/WebimClient.class.php 第 278 行.
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 223 行.
+
+[ 2013-11-05T16:34:21+08:00 ] 0.0.0.0 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000268s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000318s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.008403s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008486s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000349s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000578s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000483s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000295s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001873s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000405s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000474s ]
+
+[ 2013-11-05T16:34:21+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000363s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000407s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000237s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000267s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T16:34:23+08:00 ] 0.0.0.0 /Webim/online?_=1383640461835&buddy_ids=&room_ids=&show=available&stranger_ids=
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000465s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000539s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000311s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000354s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 185 行.
+NOTIC: [8] Undefined property: stdClass::$blocked_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 188 行.
+NOTIC: [8] Undefined property: stdClass::$temporary_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 202 行.
+NOTIC: [8] Undefined property: stdClass::$status /Users/erylee/WebServer/Common/WebimClient.class.php 第 278 行.
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 223 行.
+
+[ 2013-11-05T16:34:39+08:00 ] 0.0.0.0 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000304s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000360s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004127s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004199s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000262s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000261s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000174s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000342s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001183s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000505s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000557s ]
+
+[ 2013-11-05T16:34:39+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000417s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000475s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000271s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000308s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T16:34:39+08:00 ] 0.0.0.0 /Webim/online?_=1383640479366&buddy_ids=&room_ids=&show=available&stranger_ids=
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000424s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000486s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000300s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000343s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 185 行.
+NOTIC: [8] Undefined property: stdClass::$blocked_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 188 行.
+NOTIC: [8] Undefined property: stdClass::$temporary_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 202 行.
+NOTIC: [8] Undefined property: stdClass::$status /Users/erylee/WebServer/Common/WebimClient.class.php 第 278 行.
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 223 行.
+
+[ 2013-11-05T16:36:28+08:00 ] 0.0.0.0 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000341s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000467s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004062s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000221s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000201s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000136s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000245s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000917s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000343s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000378s ]
+
+[ 2013-11-05T16:36:28+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000431s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000488s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000278s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000312s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T16:36:30+08:00 ] 0.0.0.0 /Webim/online?_=1383640588709&buddy_ids=&room_ids=&show=available&stranger_ids=
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000517s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000590s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000344s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000390s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 185 行.
+NOTIC: [8] Undefined property: stdClass::$blocked_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 188 行.
+NOTIC: [8] Undefined property: stdClass::$temporary_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 202 行.
+NOTIC: [8] Undefined property: stdClass::$status /Users/erylee/WebServer/Common/WebimClient.class.php 第 278 行.
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 223 行.
+
+[ 2013-11-05T16:36:52+08:00 ] 0.0.0.0 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000386s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000498s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004877s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004936s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000194s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000176s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000115s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000212s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000782s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000311s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000341s ]
+
+[ 2013-11-05T16:36:52+08:00 ] 0.0.0.0 /Webim/run
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000429s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000481s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000245s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000275s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+
+[ 2013-11-05T16:36:52+08:00 ] 0.0.0.0 /Webim/online?_=1383640612770&buddy_ids=&room_ids=&show=available&stranger_ids=
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000474s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000551s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000283s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000321s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 185 行.
+NOTIC: [8] Undefined property: stdClass::$blocked_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 188 行.
+NOTIC: [8] Undefined property: stdClass::$temporary_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 202 行.
+NOTIC: [8] Undefined property: stdClass::$status /Users/erylee/WebServer/Common/WebimClient.class.php 第 278 行.
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 223 行.
+
+[ 2013-11-05T16:38:46+08:00 ] 0.0.0.0 /Webim/online?_=1383640725159&buddy_ids=&room_ids=&show=available&stranger_ids=
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000381s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000436s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000278s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000324s ]
+NOTIC: [2] mysql_connect(): No such file or directory /Users/erylee/WebServer/Common/WebimDB.class.php 第 241 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: uid /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 45 行.
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: 建议使用I方法替代_param
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 185 行.
+NOTIC: [8] Undefined property: stdClass::$blocked_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 188 行.
+NOTIC: [8] Undefined property: stdClass::$temporary_rooms /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 202 行.
+NOTIC: [8] Undefined property: stdClass::$status /Users/erylee/WebServer/Common/WebimClient.class.php 第 278 行.
+NOTIC: [8] Undefined index: enable_room /Users/erylee/WebServer/Lib/Action/WebimAction.class.php 第 223 行.
+
