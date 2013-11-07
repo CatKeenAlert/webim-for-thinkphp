@@ -21,21 +21,21 @@ ThinkIM.class.php
 
 项目集成接口类, 用户参考示例代码，实现下述接口:
 
-1. getUid() 获取当前登录用户UID
+1. uid() 获取当前登录用户UID
 
 2. newUser() 创建Webim需要的用户对象
 
 3. newVisitor() 如支持访客使用Webim，创建Visitor对象
 
-4. getBuddies() 读取当前用户的在线好友列表
+4. buddies() 读取当前用户的在线好友列表
 
-5. getBuddiesByIds($ids , $strangers) 根据ids列表读取好友列表
+5. buddiesByIds($ids , $strangers) 根据ids列表读取好友列表
 
-6. getRooms() 读取当前用户所属的群组，以支持群聊
+6. rooms() 读取当前用户所属的群组，以支持群聊
 
-7. getRoomsByIds() 根据id列表读取群组列表
+7. roomsByIds() 根据id列表读取群组列表
 
-8. getNotifications() 读取当前用户的通知信息
+8. notifications() 读取当前用户的通知信息
 
 Lib/Action/ApiAction.class.php
 ==============================
