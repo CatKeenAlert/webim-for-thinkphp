@@ -43,7 +43,7 @@ class ApiAction extends Action {
 		$this->thinkim = new ThinkIM();
 
 		//IM Client
-		$this->client = new WebimClient($this->thinkim->currentUser(), 
+		$this->client = new WebimClient($this->thinkim->user(), 
 			$this->ticket, $imc['DOMAIN'], $imc['APIKEY'], $imc['HOST'], $imc['PORT']);
 
 		//IM Models
@@ -51,11 +51,11 @@ class ApiAction extends Action {
 		$this->historyModel = D("History");
 	}
 
-	public function run() {
+	function run() {
 		$imc = C('IMC');
 		$webim_path = WEBIM_PATH;
-		$setting = "";
-		$imuser = "";
+		$setting = json_encode($this->settingModel->get($this->thinkim->uid()));
+		$imuser = json_encode($this->thinkim->user());
 		//TODO: FIXME Later
 		$script = <<<EOF
 var _IMC = {
@@ -64,8 +64,8 @@ var _IMC = {
 	path: '$webim_path',
 	is_login: '1',
 	login_options: {},
-	user: "",
-	setting: "",
+	user: $imuser,
+	setting: $setting,
 	enable_chatlink: {$imc['ENABLE_CHATLINK']},
 	enable_shortcut: false,
 	enable_menu: {$imc['ENABLE_MENU']},
@@ -86,10 +86,10 @@ EOF;
 		exit($script);
 	}
 			
-	public function online() {
+	function online() {
 		$IMC = C('IMC');
 		$domain = $this->_param("domain");
-		if ( !$this->thinkim->isLogin() ) {
+		if ( !$this->thinkim->logined() ) {
 			$this->ajaxReturn(array( 
 				"success" => false, 
 				"error_msg" => "Forbidden" ),
@@ -104,11 +104,10 @@ EOF;
 		$active_buddies = $this->idsArray( $this->_param('buddy_ids') );
 		$active_rooms = $this->idsArray( $this->_param('room_ids') );
 
-		$new_messages = $this->historyModel->getOffline($this->thinkim->currentUid());
-		$online_buddies = $this->thinkim->getBuddies();
+		$new_messages = $this->historyModel->getOffline($this->thinkim->uid());
+		$online_buddies = $this->thinkim->buddies();
 		
 		$buddies_with_info = array();//Buddy with info.
-
 		//Active buddy who send a new message.
 		$count = count($new_messages);
 		for($i = 0; $i < $count; $i++){
@@ -136,7 +135,7 @@ EOF;
 		}
 		if(!empty($buddies_without_info) || !empty($strangers)){
 			//FIXME
-			$bb = $this->thinkim->getBuddiesByIds(implode(",", $buddies_without_info), implode(",", $strangers));
+			$bb = $this->thinkim->buddiesByIds(implode(",", $buddies_without_info), implode(",", $strangers));
 			foreach( $bb as $k => $v){
 				$id = $v->id;
 				$im_buddies[] = $id;
@@ -146,8 +145,8 @@ EOF;
 			}
 		}
 		if(!$IMC['enable_room']){
-			$rooms = $this->thinkim->getRooms();
-			$setting = $this->settingModel->get($this->thinkim->currentUid());
+			$rooms = $this->thinkim->rooms();
+			$setting = $this->settingModel->get($this->thinkim->uid());
 			$blocked_rooms = $setting && is_array($setting->blocked_rooms) ? $setting->blocked_rooms : array();
 			//Find im_rooms 
 			//Except blocked.
@@ -237,7 +236,7 @@ EOF;
 
 			$show_buddies = $o;
 			$data->buddies = $show_buddies;
-			$this->historyModel->offlineReaded($this->thinkim->currentUid());
+			$this->historyModel->offlineReaded($this->thinkim->uid());
 			$this->ajaxReturn($data, 'JSON');
 		} else {
 			$this->ajaxReturn(array( 
@@ -247,12 +246,12 @@ EOF;
 		}
 	}
 
-	public function offline() {
+	function offline() {
 		$this->client->offline();
 		$this->okReturn();
 	}
 
-	public function message() {
+	function message() {
 		$type = $this->_param("type");
 		$offline = $this->_param("offline");
 		$to = $this->_param("to");
@@ -261,7 +260,7 @@ EOF;
 		$send = $offline == "true" || $offline == "1" ? 0 : 1;
 		$timestamp = $this->microtimeFloat() * 1000;
 		if( strpos($body, "webim-event:") !== 0 ) {
-			$this->historyModel->insert($this->thinkim->currentUid(), array(
+			$this->historyModel->insert($this->thinkim->user(), array(
 				"send" => $send,
 				"type" => $type,
 				"to" => $to,
@@ -276,28 +275,29 @@ EOF;
 		$this->okReturn();
 	}
 
-	public function presence() {
+	function presence() {
 		$show = $this->_param('show');
 		$status = $this->_param('status');
 		$this->client->presence($show, $status);
 		$this->okReturn();
 	}
 
-	public function history() {
-		$id = $this->_param('id');
+	function history() {
+		$uid = $this->thinkim->uid();
+		$with = $this->_param('id');
 		$type = $this->_param('type');
-		$histories = $this->historyModel->get($id, $type);
+		$histories = $this->historyModel->get($uid, $with, $type);
 		$this->ajaxReturn($histories, "JSON");
 	}
 
-	public function status() {
+	function status() {
 		$to = $this->_param("to");
 		$show = $this->_param("show");
 		$this->client->status($to, $show);
 		$this->okReturn();
 	}
 
-	public function members() {
+	function members() {
 		$id = $this->_param('id');
 		$re = $this->client->members( $id );
 		if($re) {
@@ -307,9 +307,9 @@ EOF;
 		}
 	}
 
-	public function join() {
+	function join() {
 		$id = $this->_param('id');
-		$room = $this->thinkim->getRooms( $id );
+		$room = $this->thinkim->roomsByIds( $id );
 		if( $room && count($room) ) {
 			$room = $room[0];
 		} else {
@@ -335,60 +335,71 @@ EOF;
 		}
 	}
 
-	public function leave() {
+	function leave() {
 		$id = $this->_param('id');
 		$this->client->leave( $id );
 		$this->okReturn();
 	}
 
-	public function buddies() {
+	function buddies() {
 		$ids = $this->_param('ids');
-		$this->ajaxReturn($this->thinkim->getBuddiesByIds($ids), 'JSON');
+		$this->ajaxReturn($this->thinkim->buddiesByIds($ids), 'JSON');
 	}
 
-	public function rooms() {
+	function rooms() {
 		$ids = $this->_param("ids");
-		$this->ajaxReturn($this->thinkim->getRoomsByIds($ids), "JSON");	
+		$this->ajaxReturn($this->thinkim->roomsByIds($ids), "JSON");	
 	}
 
-	public function refresh() {
+	function refresh() {
 		$this->client->offline();
 		$this->okReturn();
 	}
 
-	public function clear_history() {
+	function clear_history() {
 		$id = $this->_param('id'); //$with
-		$this->historyModel->clear($this->thinkim->currentUid(), $id);
+		$this->historyModel->clear($this->thinkim->uid(), $id);
 		$this->okReturn();
 	}
 
-	public function download_history() {
+	function download_history() {
 		$id = $this->_param('id');
 		$type = $this->_param('type');
 		$histories = $this->historyModel->get($id, $type, 1000 );
+		$date = date( 'Y-m-d' );
+		if($this->_param['date']) {
+			$date = $this->_param('date');
+		}
+		header('Content-Disposition: attachment; filename="histories-'.$date.'.html"');
+		$this->assign('date', $date);
 		$this->assign('histories', $histories);
 		$this->display();
 	}
 
-	public function setting() {
-		$data = $this->_param('data');
-		$uid = $this->thinkim->currentUid();
-		$this->settingModel->set($uid, stripslashes($data));
+	function setting() {
+		if(isset($_GET['data'])) {
+			$data = $_GET['data'];
+		} 
+		if(isset($_POST['data'])) {
+			$data = $_POST['data'];
+		}
+		$uid = $this->thinkim->uid();
+		$this->settingModel->set($uid, $data);
 		$this->okReturn();
 	}
 
-	public function notifications() {
-		$notifications = $this->thinkim->getNotifications();
+	function notifications() {
+		$notifications = $this->thinkim->notifications();
 		$this->ajaxReturn($notifications, 'JSON');
 	}
 
-	public function openchat() {
+	function openchat() {
 		$grpid = $this->_param['group_id'];
 		$nick = $this->param['nick'];
 		$this->ajaxReturn($this->client->openchat($grpid, $nick), 'JSON');	
 	}
 
-	public function closechat() {
+	function closechat() {
 		$grpid = $this->_param['group_id'];
 		$buddy_id = $this->_param['buddy_id'];
 		$this->ajaxReturn($this->client->closechat($grpid, $buddy_id), "JSON");

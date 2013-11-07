@@ -11,7 +11,7 @@ define('WEBIM_PRODUCT_NAME', 'thinkphp');
 require_once('./Common/HttpClient.class.php');
 require_once('./Common/WebimClient.class.php');
 require_once('./Common/WebimDB.class.php');
-require_once('./ThinkIM.php');
+require_once('./ThinkIM.class.php');
 
 require "./ThinkPHP/ThinkPHP.php";
 

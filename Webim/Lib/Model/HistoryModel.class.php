@@ -21,11 +21,11 @@ class HistoryModel extends Model {
 	}
 
 	public function insert($user, $message) {
-		$data = $message;
-		$data['from'] = $user->id;
-		$data['nick'] = $user->nick;
-		$data['created_at'] = date( 'Y-m-d H:i:s' );
-		$this->save($data);
+		$this->create($message);
+		$this->from = $user->id;
+		$this->nick = $user->nick;
+		$this->created_at = date( 'Y-m-d H:i:s' );
+		$this->add();
 	}
 
 	public function clear($uid, $with) {
