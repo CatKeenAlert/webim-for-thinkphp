@@ -3,11 +3,6 @@
 class ApiAction extends Action {
 
 	/*
-	 * Webim db
-	 */
-	private $db;
-
-	/*
 	 * Webim Ticket
 	 */
 	private $ticket;
@@ -28,11 +23,6 @@ class ApiAction extends Action {
 
 	function _initialize() {
 		$imc = C('IMC');
-		//IM DB
-		$imdb = new WebimDB(C('DB_USER'), C('DB_PWD'), C('DB_NAME'), C('DB_HOST'));
-		$imdb->set_prefix(C('DB_PREFIX'));
-		$imdb->add_tables(array('settings', 'histories'));
-		$this->db = $imdb;
 
 		//IM Ticket
 		$imticket = $this->_param('ticket');
