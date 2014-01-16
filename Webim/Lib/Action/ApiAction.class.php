@@ -3,6 +3,11 @@
 class ApiAction extends Action {
 
 	/*
+	 * Webim db
+	 */
+	private $db;
+
+	/*
 	 * Webim Ticket
 	 */
 	private $ticket;
@@ -23,6 +28,11 @@ class ApiAction extends Action {
 
 	function _initialize() {
 		$imc = C('IMC');
+		//IM DB
+		$imdb = new WebimDB(C('DB_USER'), C('DB_PWD'), C('DB_NAME'), C('DB_HOST'));
+		$imdb->set_prefix(C('DB_PREFIX'));
+		$imdb->add_tables(array('settings', 'histories'));
+		$this->db = $imdb;
 
 		//IM Ticket
 		$imticket = $this->_param('ticket');
@@ -41,16 +51,18 @@ class ApiAction extends Action {
 		$this->historyModel = D("History");
 	}
 
-	function run() {
+	function boot() {
 		$imc = C('IMC');
 		$webim_path = WEBIM_PATH;
 		$setting = json_encode($this->settingModel->get($this->thinkim->uid()));
-		$imuser = json_encode($this->thinkim->user());
+        $user = $this->thinkim->user();
+        $user->show = "unavailable";
+		$imuser = json_encode($user);
 		//TODO: FIXME Later
 		$script = <<<EOF
 var _IMC = {
 	production_name: 'thinkphp',
-	version: '5.0',
+	version: '5.2',
 	path: '$webim_path',
 	is_login: '1',
 	login_options: {},
@@ -66,8 +78,8 @@ var _IMC = {
 	showUnavailable: {$imc['SHOW_UNAVAILABLE']},
 	min: window.location.href.indexOf("webim_debug") != -1 ? "" : ".min"
 };
-_IMC.script = window.webim ? '' : ('<link href="' + _IMC.path + 'static/webim.' + _IMC.production_name + _IMC.min + '.css?' + _IMC.version + '" media="all" type="text/css" rel="stylesheet"/><link href="' + _IMC.path + 'static/themes/' + _IMC.theme + '/jquery.ui.theme.css?' + _IMC.version + '" media="all" type="text/css" rel="stylesheet"/><script src="' + _IMC.path + 'static/webim.' + _IMC.production_name + _IMC.min + '.js?' + _IMC.version + '" type="text/javascript"></script><script src="' + _IMC.path + 'static/i18n/webim-' + _IMC.local + '.js?' + _IMC.version + '" type="text/javascript"></script>');
-_IMC.script += '<script src="' + _IMC.path + 'webim.js?' + _IMC.version + '" type="text/javascript"></script>';
+_IMC.script = window.webim ? '' : ('<link href="' + _IMC.path + 'static/webim' + _IMC.min + '.css?' + _IMC.version + '" media="all" type="text/css" rel="stylesheet"/><link href="' + _IMC.path + 'static/themes/' + _IMC.theme + '/jquery.ui.theme.css?' + _IMC.version + '" media="all" type="text/css" rel="stylesheet"/><script src="' + _IMC.path + 'static/webim' + _IMC.min + '.js?' + _IMC.version + '" type="text/javascript"></script><script src="' + _IMC.path + 'static/i18n/webim-' + _IMC.local + '.js?' + _IMC.version + '" type="text/javascript"></script>');
+_IMC.script += '<script src="' + _IMC.path + 'webim.' + _IMC.production_name +'.js?' + _IMC.version + '" type="text/javascript"></script>';
 document.write( _IMC.script );
 
 EOF;
@@ -173,18 +185,18 @@ EOF;
 			$data->new_messages = $new_messages;
 
 			if(!$IMC['enable_room']){
+                //5.2 fix 20140112
 				//Add room online member count.
-				foreach ($data->rooms as $k => $v) {
-					$id = $v->id;
-					$cache_rooms[$id]->count = $v->count;
+				foreach ($data->rooms as $id => $count) {
+					$cache_rooms[$id]->count = $count;
 				}
 				//Show all rooms.
 			}
 			$data->rooms = $rooms;
 
 			$show_buddies = array();//For output.
-			foreach($data->buddies as $k => $v){
-				$id = $v->id;
+            //5.2 fix 20140112
+			foreach($data->buddies as $id => $show){
 				if(!isset($cache_buddies[$id])){
 					$cache_buddies[$id] = (object)array(
 						"id" => $id,
@@ -193,12 +205,13 @@ EOF;
 					);
 				}
 				$b = $cache_buddies[$id];
-				$b->presence = $v->presence;
-				$b->show = $v->show;
-				if( !empty($v->nick) )
-					$b->nick = $v->nick;
-				if( !empty($v->status) )
-					$b->status = $v->status;
+				$b->presence = "online";
+				$b->show = $show;
+                //5.2 fix 20140112
+				//if( !empty($v->nick) )
+				//	$b->nick = $v->nick;
+				//if( !empty($v->status) )
+				//	$b->status = $v->status;
 				#show online buddy
 				$show_buddies[] = $id;
 			}
@@ -313,7 +326,8 @@ EOF;
 		if($room){
 			$re = $this->client->join($id);
 			if($re){
-				$room->count = $re->count;
+                //5.2 fix
+				$room->count = $re->{$id};
 				$this->ajaxReturn($room, "JSON");
 			}else{
 				header("HTTP/1.0 404 Not Found");

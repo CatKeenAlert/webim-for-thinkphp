@@ -11,11 +11,6 @@ class ThinkIM {
 	private $user = NULL;
 
 	/*
-	 * 是否管理员
-	 */
-	private $is_admin = false;
-
-	/*
 	 * 是否访客
 	 */
 	private $is_visitor = false;
@@ -29,38 +24,31 @@ class ThinkIM {
 	 * 初始化当前用户信息
 	 */
 	function __construct() {
-		global $IMC;
-		if($this->uid()) {
-			$this->setUser();			
+		$imc = C('IMC');
+		if($this->getUid()) {
+			$imuser = $this->newUser();			
 			$this->is_login = true;
 		} else if($imc['VISITOR']) {
-			$this->setVisitor();
+			$imuser = $this->newVisitor();
 			$this->is_login = true;
 			$this->is_visitor = true;	
 		}
 		$this->user = $imuser;
 	}
 
-	/*
-	 * 接口函数: 集成项目的uid
-	 */
-	public function uid() {
-		return $_SESSION['uid'];
+	function uid() {
+		return $this->user->id;
 	}
 
-	public function user() {
+	function user() {
 		return $this->user;	
-	}
-
-	public function isAdmin() {
-		return is_admin;
 	}
 
 	function isVisitor() {
 		return $this->is_visitor;
 	}
 
-	public function logined() {
+	function logined() {
 		return $this->is_login;	
 	}
 
@@ -89,7 +77,7 @@ class ThinkIM {
 	 *
 	 * 用户属性同上
 	 */
-	public function buddiesByIds($ids = "", $strangers = "") {
+	function buddiesByIds($ids = "", $strangers = "") {
 		//根据id列表获取好友列表
 		return array();	
 	}
@@ -108,7 +96,7 @@ class ThinkIM {
 	 *	all_count: 成员总计
 	 *	blocked: true | false 是否block
 	 */
-	public function rooms() {
+	function rooms() {
 		//根据当前用户id获取群组列表
 		$demoRoom = array(
 			"id" => '1',
@@ -128,7 +116,7 @@ class ThinkIM {
 	 *
 	 * Room对象属性同上
 	 */
-	public function roomsByIds($ids = "") {
+	function roomsByIds($ids = "") {
 		return array();	
 	}
 
@@ -140,46 +128,53 @@ class ThinkIM {
 	 * 	text: 文本
 	 * 	link: 链接
 	 */	
-	public function notifications() {
+	function notifications() {
 		return array();	
+	}
+
+	/*
+	 * 接口函数: 集成项目的uid
+	 */
+	private function getUid() {
+		return $_SESSION['uid'];
 	}
 
 	/*
 	 * 接口函数: 初始化当前用户对象，与站点用户集成.
 	 */
-	private function setUser() {
+	private function newUser() {
 		$uid = $_SESSION['uid'];
 		//NOTICE: This user should be read from thinkphp database.
-		$this->user = (object)array(
-			'uid' => $uid,
-			'id' => $uid,
-			'nick' => "nick".$id, //TODO: 
-			'pic_url' => WEBIM_PATH . "static/images/chat.png", //TODO:
-			'show' => "available",
-			'url' => "#",
-			'status' => "",
-		);
+		$imuser = (object)array();
+		$imuser->uid = $uid;
+		$imuser->id = $uid;
+		$imuser->nick = "nick".$id; //TODO: 
+		$imuser->pic_url = WEBIM_PATH . "static/images/chat.png"; //TODO:
+		$imuser->show = "available";
+		$imuser->url = "#";
+		$imuser->status = "";
+		return $imuser;
 	}
 	
 	/*
 	 * 接口函数: 创建访客对象，可根据实际需求修改.
 	 */
-	private function setVisitor() {
+	private function newVisitor() {
+		$imvisitor = (object)array();
 		if ( isset($_COOKIE['_webim_visitor_id']) ) {
 			$id = $_COOKIE['_webim_visitor_id'];
 		} else {
 			$id = substr(uniqid(), 6);
 			setcookie('_webim_visitor_id', $id, time() + 3600 * 24 * 30, "/", "");
 		}
-		$this->user = (object)array(
-			'uid' => 'vid:'.$id,
-			'id' => 'vid:'.$id,
-			'nick' => "v".$id,
-			'pic_url' => WEBIM_PATH  . "/static/images/chat.png",
-			'show' => "available",
-			'url' => "#",
-			'status' => '网站访客',
-		);
+		$imuser->uid = $id;
+		$imuser->id = $id;
+		$imuser->nick = "v".$id;
+		$imuser->pic_url = WEBIM_PATH . "static/images/chat.png";
+		$imuser->show = "available";
+		$imuser->url = "#";
+		return $imuser;
 	}
 
 }
+

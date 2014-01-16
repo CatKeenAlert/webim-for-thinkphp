@@ -11,17 +11,16 @@
 
 class WebimClient
 {
-    //TODO: should be const
-    var $apivsn = "v5";
+    const apivsn = "v5";
 
-	var $user;
-	var $domain;
-	var $apikey;
-	var $host;
-	var $port;
-	var $client;
-	var $ticket;
-	var $version = 5;
+	private $user;
+	private $domain;
+	private $apikey;
+	private $host;
+	private $port;
+	private $client;
+	private $ticket;
+	private $version = 5;
 
 	/**
 	 * New
@@ -75,7 +74,6 @@ class WebimClient
 	 * 	-id
 	 * 	-count
 	 */
-
     #FIXME: fix json decode
 	function join($gid){
 		$data = array(
@@ -90,11 +88,8 @@ class WebimClient
 		$this->client->post($this->apiurl('group/join'), $data);
 		$cont = $this->client->getContent();
 		if($this->client->status == "200"){
-			$da = json_decode($cont);
-			return (object)array(
-				"id" => $gid,
-				"count" => $da ->{$gid},
-			);
+            //5.2 fix
+			return json_decode($cont);
 		}else{
 			return null;
 		}
@@ -146,12 +141,39 @@ class WebimClient
 		$this->client->get($this->apiurl('group/members'), $data);
 		$cont = $this->client->getContent();
 		if($this->client->status == "200"){
-			$da = json_decode($cont);
-			return $da ->{$gid};
+            //5.2 fix
+			return json_decode($cont);
 		}else{
 			return null;
 		}
 	}
+
+    /**
+     * Get presences
+     *
+     * @param $ids
+     *
+     * @return object
+     */
+    function presences($ids) {
+        if(is_array($ids)) {
+            $ids =  implode(",", $ids);
+        }
+		$req = array(
+			'version' => $this->version,
+			'ticket' => $this->ticket,
+			'apikey' => $this->apikey,
+			'domain' => $this->domain,
+			'ids' => $ids,
+		);
+		$this->client->get($this->apiurl('presences'), $req);
+		$data = $this->client->getContent();
+        if($this->client->status == "200") {
+            return json_decode($data);   
+        } else {
+            return null;
+        }
+    }
 
 	/**
 	 * Send user chat status to other.
@@ -162,7 +184,6 @@ class WebimClient
 	 * @return ok
 	 *
 	 */
-
 	function status($to, $show){
 		$data = array(
 			'version' => $this->version,
@@ -206,6 +227,34 @@ class WebimClient
 		return $this->client->getContent();
 	}
 
+	/**
+	 * Push message, no need to online.
+	 *
+	 * @param string $from from 
+	 * @param string $type chat or grpchat or boardcast
+	 * @param string $to message receiver
+	 * @param string $body message
+	 * @param string $style css
+	 *
+	 * @return ok
+	 *
+	 */
+	function push($type, $from, $to, $body, $style="", $timestamp=null){
+		$req = array(
+			'version' => $this->version,
+			'apikey' => $this->apikey,
+			'domain' => $this->domain,
+			'nick' => $this->user->nick,
+			'type' => $type,
+            'from' => $from,
+			'to' => $to,
+			'body' => $body,
+			'style' => $style,
+			'timestamp' => empty($timestamp) ? (string)webim_microtime_float()*1000 : $timestamp,
+		);
+		$this->client->post($this->apiurl('messages'), $req);
+		return $this->client->getContent();
+	}
 
 	/**
 	 * Send user presence
@@ -289,6 +338,8 @@ class WebimClient
 		}else{
 			$ticket = $da->ticket;
 			$this->ticket = $ticket;
+            /* 5.2 fix
+             * No need to process.
 			$buddies = array();
 			foreach($da->buddies as $buddy){
 				$buddies[] = (object)array("id" => $buddy->name, "nick" => $buddy->nick, "show" => $buddy->show, "presence" => "online", "status" => $buddy->status);
@@ -297,6 +348,7 @@ class WebimClient
 			foreach($da->groups as $group){
 				$groups[] = (object)array("id" => $group->name, "count" => $group->total);
 			}
+             */
 			$connection = (object)array(
 				"ticket" => $ticket,
 				"domain" => $this->domain,
@@ -309,9 +361,10 @@ class WebimClient
 			return (object)array(
 				"success" => true, 
 				"connection" => $connection, 
-				"buddies" => $buddies, 
-				"rooms" => $groups, 
-				"groups" => $groups, 
+                //5.2 fix
+				"buddies" => $da->buddies, 
+				"rooms" => $da->groups, 
+				"groups" => $da->groups, 
 				"server_time" => microtime(true)*1000, 
 				"user" => $this->user
 			);
@@ -400,7 +453,7 @@ class WebimClient
 	}
 
     private function apiurl($path) {
-        return '/' . $this->apivsn . '/' . $path;
+        return '/' . self::apivsn . '/' . $path;
     }
 
 }
