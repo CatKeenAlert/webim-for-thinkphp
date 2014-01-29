@@ -65,6 +65,7 @@ var _IMC = {
 	version: '5.2',
 	path: '$webim_path',
 	is_login: '1',
+    is_visitor: false,
 	login_options: {},
 	user: $imuser,
 	setting: $setting,
