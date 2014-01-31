@@ -25,7 +25,7 @@ CREATE TABLE webim_histories (
 
 DROP TABLE IF EXISTS webim_settings;
 CREATE TABLE webim_settings(
-	`id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 	`uid` int(11) unsigned NOT NULL,
 	`data` text,
 	`created_at` DATETIME DEFAULT NULL,
