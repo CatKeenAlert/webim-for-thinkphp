@@ -16,6 +16,11 @@ Usage
 
 5. 实现Webim/ThinkIM.php的项目集成接口，与项目用户、群组、通知集成.
 
+6. 项目需要显示Webim的页面，footer嵌入:
+
+    <script type="text/javascript" src="Webim/Api/boot"></script>
+
+
 ThinkIM.class.php
 ================
 
