@@ -18,8 +18,9 @@ Usage
 
 6. 项目需要显示Webim的页面，footer嵌入:
 
-
-    <script type="text/javascript" src="Webim/Api/boot"></script>
+```
+<script type="text/javascript" src="Webim/Api/boot"></script>
+```
 
 
 
