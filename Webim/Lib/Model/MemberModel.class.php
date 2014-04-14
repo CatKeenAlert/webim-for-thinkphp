@@ -25,4 +25,14 @@ class MemberModel extends Model {
         return $rooms;
     }
 
+    public function join($room, $uid, $nick) {
+        $this->create(array(
+            'uid' => $uid,
+            'room' => $room,
+            'nick' => $nick
+        ));
+        $this->joined = date( 'Y-m-d H:i:s' );
+        $this->add();
+    }
+
 }
