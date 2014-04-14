@@ -32,16 +32,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace WebIM;
-
 /**
- * WebIM Plugin
+ * ThinkPHP WebIM Plugin
  *
  * @package WebIM
  * @autho Ery Lee
  * @since 5.4.1
  */
-class ThinkPHP_Plugin {
+class ThinkWebIM {
 
 	/*
 	 * Current user or visitor 
@@ -51,8 +49,7 @@ class ThinkPHP_Plugin {
 	/*
 	 * Init User
 	 */
-    public function __construct() {
-        global $IMC;
+    public function __construct($IMC) {
         $uid = $this->uid();
 		if($uid) {
             $this->user = $this->user($uid);

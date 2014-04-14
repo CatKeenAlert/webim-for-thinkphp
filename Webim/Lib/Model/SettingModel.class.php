@@ -16,7 +16,7 @@ class SettingModel extends Model {
 			$setting = $this->create(array(
 				'uid' => $uid,
 				'data' => $data,
-				'created_at' => date( 'Y-m-d H:i:s' ),
+				'created' => date( 'Y-m-d H:i:s' ),
 			));
 			$this->add();
 		}

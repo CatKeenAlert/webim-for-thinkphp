@@ -24,7 +24,7 @@ class HistoryModel extends Model {
 		$this->create($message);
 		$this->from = $user->id;
 		$this->nick = $user->nick;
-		$this->created_at = date( 'Y-m-d H:i:s' );
+		$this->created = date( 'Y-m-d H:i:s' );
 		$this->add();
 	}
 
