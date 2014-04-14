@@ -16,7 +16,7 @@ return array(
 		'ENABLE'	=> true,		//开启webim
 		'DOMAIN' 	=> 'localhost',	//消息服务器通信域名
 		'APIKEY'	=> 'public',	//消息服务器通信APIKEY
-		'HOST'		=> 'nextalk.im',//im服务器
+		'SERVER'    => 'nextalk.im',//im服务器
 		'PORT'		=> 8000,		//服务端接口端口
 		'THEME'		=> 'base',		//界面主题，根据webim/static/themes/目录内容选择
 		'LOCAL'		=> 'zh-CN',		//本地语言，扩展请修改webim/static/i18n/内容
