@@ -46,6 +46,6 @@ require './vendor/autoload.php';
 
 require './ThinkPHP_Plugin.php';
 
-require "../ThinkPHP/ThinkPHP.php";
+require "./ThinkPHP/ThinkPHP.php";
 
 
