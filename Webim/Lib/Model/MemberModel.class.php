@@ -13,7 +13,7 @@ class MemberModel extends Model {
                 'nick' => $row['nick']
             );
         }
-        return members;
+        return $members;
     }
 
     public function rooms($uid) {
@@ -26,6 +26,8 @@ class MemberModel extends Model {
     }
 
     public function join($room, $uid, $nick) {
+        $m = $this->where("room='{$room}' and uid='{$uid}'")->find();
+        if($m) return;
         $this->create(array(
             'uid' => $uid,
             'room' => $room,

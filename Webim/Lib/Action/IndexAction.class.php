@@ -400,7 +400,7 @@ EOF;
             ));
         }
         //join the room
-        $this->models['room']->join($roomId, $uid, $endpoint['nick']);
+        $this->models['member']->join($roomId, $uid, $endpoint['nick']);
         //invite members
         $members = explode(",", $this->_param('members'));
         $members = $this->plugin->buddiesByIds($members);
@@ -491,6 +491,11 @@ EOF;
             }
             $rtMembers[] = $m;
         }
+        uasort($rtMembers, function($m1, $m2) {
+            if($m1['presence'] === $m2['presence']) return 0;
+            if($m1['presence'] === 'online') return 1;
+            return -1;
+        });
         $this->ajaxReturn($rtMembers, 'JSON');
 	}
 

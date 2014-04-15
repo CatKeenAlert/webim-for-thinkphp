@@ -56,12 +56,8 @@ class RoomModel extends Model {
 
     public function invite($room, $members) {
         foreach($members as $member) {
-            $this->join($room, $member['uid'], $member['nick']);   
+            D('member')->join($room, $member['uid'], $member['nick']);
         }
-    }
-
-    public function join($room, $uid, $nick) {
-        D('member')->join($room, $uid, $nick);
     }
 
     public function leave($room, $uid) {
