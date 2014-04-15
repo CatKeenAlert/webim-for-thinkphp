@@ -5,24 +5,29 @@
     var cookie_key = "_webim_cookie_";
 	if( _IMC.is_visitor ) { cookie_key = "_webim_v_cookie_"; }
     if( _IMC.user != "" ) { cookie_key = cookie_key + _IMC.user.id; }
-
 	webim.route( {
-		online: path + "Api/online",
-		offline: path + "Api/offline",
-		deactivate: path + "Api/refresh",
-		message: path + "Api/message",
-		presence: path + "Api/presence",
-		status: path + "Api/status",
-		setting: path + "Api/setting",
-		history: path + "Api/history",
-		clear: path + "Api/clear_history",
-		download: path + "Api/download_history",
-		members: path + "Api/members",
-		join: path + "Api/join",
-		leave: path + "Api/leave",
-		buddies: path + "Api/buddies",
-		//upload: path + "static/images/upload.php",
-		notifications: path + "Api/notifications"
+		online: path + "Index/online",
+		offline: path + "Index/offline",
+		deactivate: path + "Index/refresh",
+		message: path + "Index/message",
+		presence: path + "Index/presence",
+		status: path + "Index/status",
+		setting: path + "Index/setting",
+		history: path + "Index/history",
+		clear: path + "Index/clear_history",
+		download: path + "Index/download_history",
+		buddies: path + "Index/buddies",
+        //room actions
+		invite: path + "Index/invite",
+		join: path + "Index/join",
+		leave: path + "Index/leave",
+		block: path + "Index/block",
+		unblock: path + "Index/unblock",
+		members: path + "Index/members",
+        //notifications
+		notifications: path + "Index/notifications",
+        //upload files
+		upload: path + "static/images/upload.php"
 	} );
 
 	webim.ui.emot.init({"dir": path + "/static/images/emot/default"});
