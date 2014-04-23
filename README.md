@@ -3,8 +3,15 @@ WebIM-for-ThinkPHP
 
 WebIM Application for ThinkPHP3.1
 
-Usage
+Demo
 =====
+
+1. Webim目录上传WEB服务器根目录
+
+2. 访问http://localhost/Webim/Index/
+
+Develop
+=======
 
 1. Webim目录上传ThinkPHP项目根目录下;
 
