@@ -13,10 +13,11 @@ return array(
 	//IM配置
 	'IMC' => array(
 		'version'	=> '5.4',		//IM版本, 当前为5.4
-		'opened'	=> true,		//开启webim
+		'debug'     => true,		//DEBUG模式
+		'isopen'	=> true,		//开启webim
 		'domain' 	=> 'localhost',	//消息服务器通信域名
 		'apikey'	=> 'public',	//消息服务器通信APIKEY
-		'server'    => 'http://localhost:8000',//im服务器
+		'server'    => 'localhost:8000',//im服务器
 		'theme'		=> 'base',		//界面主题，根据webim/static/themes/目录内容选择
 		'local'		=> 'zh-CN',		//本地语言，扩展请修改webim/static/i18n/内容
 		'emot'		=> 'default',	//表情主题
@@ -26,9 +27,10 @@ return array(
 		'show_realname'		=> false,	//是否显示好友真实姓名
 		'show_unavailable'	=> true, //支持显示不在线用户
 		'enable_login'		=> false,	//允许未登录时显示IM，并可从im登录
-		'enable_menu'		=> false,		//隐藏工具条
-		'enable_room'		=> true,		//禁止群组聊天
-		'enable_noti'		=> true,		//禁止通知
+		'enable_menu'		=> false,	//隐藏工具条
+		'enable_room'		=> true,	//禁止群组聊天
+        'discussion'        => true,   //临时讨论组
+		'enable_noti'		=> true,	//禁止通知
 		'enable_chatlink'	=> true,	//禁止页面名字旁边的聊天链接
 		'enable_shortcut'	=> false,	//支持工具栏快捷方式
 	),

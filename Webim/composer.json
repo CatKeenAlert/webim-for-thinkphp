@@ -1,6 +1,7 @@
 {
     "require": {
         "php": ">=5.3.7",
+        "webim/geoip-php": "*",
         "webim/webim-php": "*"
     }
 }

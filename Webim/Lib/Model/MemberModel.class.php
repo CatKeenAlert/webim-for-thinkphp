@@ -8,7 +8,7 @@ class MemberModel extends Model {
         $rows = $this->where("room = '{$room}'")->select();
         $members = array();
         foreach($rows as $row) {
-            $members[] = array(
+            $members[] = (object)array(
                 'id' => $row['uid'],
                 'nick' => $row['nick']
             );

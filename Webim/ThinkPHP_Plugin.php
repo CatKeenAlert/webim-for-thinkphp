@@ -32,6 +32,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+namespace WebIM;
+
 /**
  * ThinkPHP WebIM Plugin
  *
@@ -39,46 +41,25 @@
  * @autho Ery Lee
  * @since 5.4.1
  */
-class ThinkWebIM {
-
-	/*
-	 * Current user or visitor 
-	 */
-	protected $user = null;
+class ThinkPHP_Plugin {
 
 	/*
 	 * Init User
 	 */
     public function __construct($IMC) {
-        $uid = $this->uid();
-		if($uid) {
-            $this->user = $this->user($uid);
-		} else if($IMC['visitor']) {//visitor 
-			$this->user = $this->visitor();
-        } else {//no user or visitor
-
-        }
 	}
 
-	/*
-	 * API: uid of logined user
+    /**
+     * API: current user
      *
-     * @return string uid of logined user
-	 */
-	protected function uid() {
+     * @return object current user
+     */
+    public function user() {
         global $_SESSION;
-		return isset($_SESSION['uid']) ? $_SESSION['uid'] : null;
-	}
+		$uid = isset($_SESSION['uid']) ? $_SESSION['uid'] : null;
+        if( !$uid ) return null;
 
-	/*
-	 * API: load user
-     *
-     * @return array user
-	 */
-	protected function user($uid) {
-		//NOTICE: demo user
-		return array(
-            'uid' => $uid,
+		return (object)array(
             'id' => $uid,
             'nick' => preg_replace('/uid/', 'user', $uid),
             'presence' => 'online',
@@ -88,59 +69,6 @@ class ThinkWebIM {
             'role' => 'user',
             'status' => "",
         );
-	}
-
-	/*
-	 * API: load visitor
-     *
-     * @return array visitor
-	 */
-	protected function visitor() {
-		if ( isset($_COOKIE['_webim_visitor_id']) ) {
-			$id = $_COOKIE['_webim_visitor_id'];
-		} else {
-			$id = substr(uniqid(), 6);
-			setcookie('_webim_visitor_id', $id, time() + 3600 * 24 * 30, "/", "");
-		}
-        $vid = $this->_vid($id);
-        return array(
-            'uid' => $vid,
-            'id' => $vid, 
-            'nick' => "v".$id,
-            'presence' => 'online',
-            'show' => "available",
-            'pic_url' => WEBIM_IMAGE('male.png'),
-            'role' => 'visitor',
-            'url' => "#",
-            'status' => "",
-        );
-	}
-
-    /**
-     * Is visitor id?
-     *
-     * @return true|false
-     */
-    protected function isvid($uid) {
-        return strpos($uid, 'vid:') === 0;
-    }
-
-    /**
-     * Current user 
-     *
-     * @return array current user 
-     */
-    public function currentUser() {
-        return $this->user;
-    }
-
-    /**
-     * Is logined?
-     *
-     * @return true|false
-     */
-    public function logined() {
-        return ($this->user != null);
     }
 
 	/*
@@ -166,9 +94,8 @@ class ThinkWebIM {
 	public function buddies($uid) {
         //TODO: DEMO Code
         return array_map(function($id){
-            return array(
+            return (object)array(
                 'id' => 'uid' . $id,
-                'uid' => 'uid' . $id,
                 'group' => 'friend',
                 'nick' => 'user'.$id,
                 'presence' => 'offline',
@@ -189,11 +116,10 @@ class ThinkWebIM {
      *
 	 * Buddy
 	 */
-	public function buddiesByIds($ids) {
+	public function buddiesByIds($uid, $ids) {
         return array_map(function($id) {
-            return array(
+            return (object)array(
                 'id' => $id,
-                'uid' => $id,
                 'group' => 'friend',
                 'nick' => preg_replace('/uid/', 'user', $id),
                 'presence' => 'offline',
@@ -224,7 +150,7 @@ class ThinkWebIM {
 	 */
 	public function rooms($uid) {
         //TODO: DEMO CODE
-		$room = array(
+		$room = (object)array(
 			'id' => 'room1',
             'name' => 'room1',
 			'nick' => 'Room',
@@ -247,11 +173,11 @@ class ThinkWebIM {
 	 * Room
      *
 	 */
-	function roomsByIds($ids) {
+	function roomsByIds($uid, $ids) {
         $rooms = array();
         foreach($ids as $id) {
             if($id === 'room1') { 
-                $rooms[] = array(
+                $rooms[] = (object)array(
                     'id' => $id,
                     'name' => $id,
                     'nick' => 'room'.$id,
@@ -272,9 +198,8 @@ class ThinkWebIM {
     function members($room) {
         //TODO: DEMO CODE
         return array_map(function($id) {
-            return array(
+            return (object)array(
                 'id' => 'uid' . $id,
-                'uid' => 'uid' . $id,
                 'nick' => 'user'.$id
             ); 
         }, range(1, 10));
@@ -291,19 +216,25 @@ class ThinkWebIM {
 	 * 	link: link
 	 */	
 	public function notifications($uid) {
-        $noti = array('text' => 'Notification', 'link' => '#');
+        $noti = (object)array('text' => 'Notification', 'link' => '#');
 		return array($noti);
 	}
 
     /**
-     * Visitor id
+     * API: menu
      *
-     * @param string $id raw id
-     * @return string visitor id
+     * @return array menu list
+     *
+     * Menu:
+     *
+     * icon
+     * text
+     * link
      */
-    protected function _vid($id) { 
-        return 'vid:'.$id; 
+    public function menu($uid) {
+        return array();
     }
 
 }
+
 
