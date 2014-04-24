@@ -12,7 +12,7 @@ return array(
 
 	//IM配置
 	'IMC' => array(
-		'version'	=> '5.4',		//IM版本, 当前为5.4
+		'version'	=> '5.4.2',		//IM版本, 当前为5.4
 		'debug'     => true,		//DEBUG模式
 		'isopen'	=> true,		//开启webim
 		'domain' 	=> 'localhost',	//消息服务器通信域名

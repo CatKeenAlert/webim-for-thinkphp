@@ -17,8 +17,8 @@ class RoomModel extends Model {
     public function rooms($uid) {
         $rooms = D('Member')->rooms($uid);
         if(empty($rooms)) return array();
-        $names = implode(',', array_map(function($r) {return "'{$r}'";}, $rooms));
-        $rows = $this->where("name in ({$names})")->select();
+        $names = implode("','", $rooms));
+        $rows = $this->where("name in ('{$names}')")->select();
         $rooms = array();
         foreach($rows as $row) {
             $rooms[] = (object)array(
@@ -37,8 +37,8 @@ class RoomModel extends Model {
 
     public function roomsByIds($uid, $ids) {
        if(empty($ids)) return array();
-       $ids = implode(',', array_map(function($i) {return "'{$i}'";}, $ids));
-       $rows = $this->where("name in ({$ids})")->select();
+       $ids = implode("','",  $ids));
+       $rows = $this->where("name in ('{$ids}')")->select();
        $rooms = array();
        foreach($rows as $row) {
            $rooms[] = (object)array(

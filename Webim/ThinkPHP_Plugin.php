@@ -46,8 +46,9 @@ class ThinkPHP_Plugin {
 	/*
 	 * Init User
 	 */
-    public function __construct($IMC) {
-	}
+    public function __construct() { 
+    }
+
 
     /**
      * API: current user
@@ -93,18 +94,7 @@ class ThinkPHP_Plugin {
 	 */
 	public function buddies($uid) {
         //TODO: DEMO Code
-        return array_map(function($id){
-            return (object)array(
-                'id' => 'uid' . $id,
-                'group' => 'friend',
-                'nick' => 'user'.$id,
-                'presence' => 'offline',
-                'show' => 'unavailable',
-                'status' => '#',
-                'pic_url' => WEBIM_IMAGE('male.png')
-            );
-        
-        }, range(1, 10));
+        return array_map( array($this, '_buddy'), range(1, 10) );
 	}
 
 	/*
@@ -117,18 +107,23 @@ class ThinkPHP_Plugin {
 	 * Buddy
 	 */
 	public function buddiesByIds($uid, $ids) {
-        return array_map(function($id) {
-            return (object)array(
-                'id' => $id,
-                'group' => 'friend',
-                'nick' => preg_replace('/uid/', 'user', $id),
-                'presence' => 'offline',
-                'show' => 'unavailable',
-                'status' => '#',
-                'pic_url' => WEBIM_IMAGE('male.png')
-            );
-        }, $ids);
+        return array_map( array($this, '_buddy'), $ids );
 	}
+
+    /**
+     * Demo Buddy
+     */
+    private function _buddy($id) {
+        return (object) array(
+            'id' => 'uid' . $id,
+            'group' => 'friend',
+            'nick' => 'user'.$id,
+            'presence' => 'offline',
+            'show' => 'unavailable',
+            'status' => '#',
+            'pic_url' => WEBIM_IMAGE('male.png')
+        );
+    }
 
 	/*
 	 * API：rooms of current user
@@ -173,7 +168,7 @@ class ThinkPHP_Plugin {
 	 * Room
      *
 	 */
-	function roomsByIds($uid, $ids) {
+	public function roomsByIds($uid, $ids) {
         $rooms = array();
         foreach($ids as $id) {
             if($id === 'room1') { 
@@ -195,14 +190,19 @@ class ThinkPHP_Plugin {
      * $param $room string roomid
      * 
      */
-    function members($room) {
+    public function members($room) {
         //TODO: DEMO CODE
-        return array_map(function($id) {
-            return (object)array(
-                'id' => 'uid' . $id,
-                'nick' => 'user'.$id
-            ); 
-        }, range(1, 10));
+        return array_map( array($this, '_member'), range(1, 10) );
+    }
+
+    /**
+     * Demo member
+     */
+    private function _member($id) {
+        return (object)array(
+            'id' => 'uid' . $id,
+            'nick' => 'user'.$id
+        ); 
     }
 
 	/*
@@ -236,5 +236,4 @@ class ThinkPHP_Plugin {
     }
 
 }
-
 

@@ -32,6 +32,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * WebIM Controller
+ *
+ * @autho Ery Lee
+ * @since 5.4.2
+ */
+
 class IndexAction extends Action {
 
     /**
@@ -50,7 +57,7 @@ class IndexAction extends Action {
 	private $plugin;
 
 	/*
-	 * Webim Client
+	 * WebIM Client
 	 */
 	private $client;
 
@@ -151,7 +158,7 @@ document.write( _IMC.script );
 EOF;
 		exit($script);
 	}
-			
+
     /**
      * Online
      */
@@ -175,8 +182,13 @@ EOF;
 		}
         //buddies of uid
 		$buddies = $this->plugin->buddies($uid);
-        $buddyIds = array_map(function($buddy) { return $buddy->id; }, $buddies);
-        $buddyIdsWithoutInfo = array_filter( array_merge($chatlinkIds, $activeBuddyIds), function($id) use($buddyIds){ return !in_array($id, $buddyIds); } );
+        $buddyIds = array_map(array($this, 'buddyId'), $buddies);
+        $buddyIdsWithoutInfo = array();
+        foreach(array_merge($chatlinkIds, $activeBuddyIds) as $id) {
+            if( !in_array($id, $buddyIds) ) {
+                $buddyIdsWithoutInfo[] = $id;
+            }
+        }
         //buddies by ids
 		$buddiesByIds = $this->plugin->buddiesByIds($uid, $buddyIdsWithoutInfo);
 
@@ -192,7 +204,7 @@ EOF;
             //temporary rooms
 			$temporaryRooms = $this->models['room']->rooms($uid);
             $rooms = array_merge($persistRooms, $temporaryRooms);
-            $roomIds = array_map(function($room) { return $room->id; }, $rooms);
+            $roomIds = array_map(array($this, 'roomId'), $rooms);
 		}
 
 		//===============Online===============
@@ -218,8 +230,11 @@ EOF;
                 }
 			}
             if( !$IMC['show_unavailable'] ) {
-                $rtBuddies = array_filter($rtBuddies, 
-                    function($buddy) { return $buddy->presence === 'online'; });        
+                $olBuddies = array();
+                foreach($rtBuddies as $buddy) {
+                    if($buddy->presence === 'online') $olBuddies[] = $buddy;
+                }
+                $rtBuddies = $olBuddies;
             }
             $rtRooms = array();
             if( $IMC['enable_room'] ) {
@@ -403,7 +418,7 @@ EOF;
 			exit("Nick is Null");
         }
         //find persist room 
-        $room = $this->findRoom($this->plugin, $roomId);
+        $room = $this->findRoom($this->model, $roomId);
         if(!$room) {
             //create temporary room
             $room = $this->models['room']->insert(array(
@@ -570,6 +585,14 @@ EOF;
 
     private function isvid($id) {
         return strpos($id, 'vid:') === 0;
+    }
+
+    private function roomId($room) {
+        return $room->id;
+    }
+
+    private function buddyId($buddy) {
+        return $buddy->id;
     }
 
 }

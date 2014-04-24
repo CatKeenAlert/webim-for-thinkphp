@@ -12,12 +12,12 @@ class HistoryModel extends Model {
 			$where = "`to`='$with' AND `type`='grpchat' AND send = 1";
 		}
 		$rows = $this->where($where)->order('timestamp DESC')->limit(0, $limit)->select();
-		return array_reverse( array_map(function($row) { return (object)$row; }, $rows) );
+		return array_reverse( array_map( array($this, '_toObj'), $rows ) );
 	}
 
 	public function getOffline($uid, $limit = 50) {
 		$rows = $this->where("`to`='$uid' and send != 1")->order('timestamp DESC ')->limit(0, $limit)->select();
-		return array_reverse( array_map(function($row) { return (object)$row; }, $rows) );
+		return array_reverse( array_map( array($this, '_toObj'), $rows ) );
 	}
 
 	public function insert($user, $message) {
@@ -37,6 +37,8 @@ class HistoryModel extends Model {
 	public function offlineReaded($uid) {
 		$this->where("to='$uid' and send=0")->save(array("send" => 1));
 	}
+
+    private function _toObj($v) { return (object)$v; }
 
 }
 
