@@ -17,7 +17,7 @@ class RoomModel extends Model {
     public function rooms($uid) {
         $rooms = D('Member')->rooms($uid);
         if(empty($rooms)) return array();
-        $names = implode("','", $rooms));
+        $names = implode("','", $rooms);
         $rows = $this->where("name in ('{$names}')")->select();
         $rooms = array();
         foreach($rows as $row) {
@@ -37,7 +37,7 @@ class RoomModel extends Model {
 
     public function roomsByIds($uid, $ids) {
        if(empty($ids)) return array();
-       $ids = implode("','",  $ids));
+       $ids = implode("','",  $ids);
        $rows = $this->where("name in ('{$ids}')")->select();
        $rooms = array();
        foreach($rows as $row) {
