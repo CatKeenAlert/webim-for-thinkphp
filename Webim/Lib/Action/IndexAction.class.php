@@ -67,13 +67,22 @@ class IndexAction extends Action {
 
         if( !$IMC['isopen'] ) exit(json_encode("Webim Not Opened"));
 
+		//Models
+        $this->models = array();
+        $this->models['room'] = D('Room');
+        $this->models['member'] = D('Member');
+        $this->models['blocked'] = D('Blocked');
+		$this->models['setting'] = D('Setting');
+		$this->models['history'] = D('History');
+        $this->models['visitor'] = D('Visitor');
+
 		//Plugin
 		$this->plugin = new \WebIM\ThinkPHP_Plugin();
 
         //WebIM User
         $user = $this->plugin->user();
         if($user == null &&  $IMC['visitor']) {
-            $user = $this->model->visitor();
+            $user = $this->models['visitor']->findOrCreate();
         }
 
         if(!$user) exit(json_encode("Login Required"));
@@ -92,14 +101,6 @@ class IndexAction extends Action {
             $IMC['server'], 
             $ticket
         );
-
-		//Models
-        $this->models = array();
-        $this->models['room'] = D('Room');
-        $this->models['member'] = D('Member');
-        $this->models['blocked'] = D('Blocked');
-		$this->models['setting'] = D('Setting');
-		$this->models['history'] = D('History');
 	}
 
     public function index(){
@@ -291,7 +292,20 @@ EOF;
 	public function buddies() {
         $uid = $this->user->id;
 		$ids = $this->_param('ids');
-		$this->ajaxReturn($this->plugin->buddiesByIds($uid, $ids), 'JSON');
+        $vids = array();
+        $uids = array();
+        foreach(explode(',', $ids) as $id) {
+            if($this->isvid($id)) { 
+                $vids[] = $id;
+            } else {
+                $uids[] = $id;
+            }
+        }
+        $buddies = array_merge(
+            $this->plugin->buddiesByIds($uid, $uids),
+            $this->model['visitor']->visitorsByIds($vids)
+        );
+		$this->ajaxReturn($buddies, 'JSON');
 	}
 
     /**
