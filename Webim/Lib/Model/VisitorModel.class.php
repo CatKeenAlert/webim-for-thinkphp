@@ -4,7 +4,7 @@ class VisitorModel extends Model {
 
 	protected $tableName = 'visitors';
 
-    public function findOrCreat() {
+    public function findOrCreate() {
         global $_COOKIE, $_SERVER;
         if (isset($_COOKIE['_webim_visitor_id'])) {
             $id = $_COOKIE['_webim_visitor_id'];

@@ -81,7 +81,7 @@ class IndexAction extends Action {
 
         //WebIM User
         $user = $this->plugin->user();
-        if($user == null &&  $IMC['visitor']) {
+        if($user == null && $IMC['visitor']) {
             $user = $this->models['visitor']->findOrCreate();
         }
 
