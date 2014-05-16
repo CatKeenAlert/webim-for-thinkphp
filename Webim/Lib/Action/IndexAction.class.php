@@ -305,6 +305,18 @@ EOF;
             $this->plugin->buddiesByIds($uid, $uids),
             $this->model['visitor']->visitorsByIds($vids)
         );
+        $buddyIds = array_map(array($this, 'buddyId'), $buddies);
+        $presences = $this->client->presences($buddyIds);
+        foreach($buddies as $buddy) {
+            $id = $buddy->id;
+            if( isset($presences->$id) ) {
+                $buddy->presence = 'online';
+                $buddy->show = $presences->$id;
+            } else {
+                $buddy->presence = 'offline';
+                $buddy->show = 'unavailable';
+            }
+        }
 		$this->ajaxReturn($buddies, 'JSON');
 	}
 

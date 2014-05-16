@@ -20,10 +20,8 @@ class HistoryModel extends Model {
 		return array_reverse( array_map( array($this, '_toObj'), $rows ) );
 	}
 
-	public function insert($user, $message) {
+	public function insert($message) {
 		$this->create($message);
-		$this->from = $user->id;
-		$this->nick = $user->nick;
 		$this->created = date( 'Y-m-d H:i:s' );
 		$this->add();
 	}
