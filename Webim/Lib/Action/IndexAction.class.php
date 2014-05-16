@@ -257,6 +257,7 @@ EOF;
                 'success' => true,
                 'connection' => $data->connection,
                 'user' => $this->user,
+                'presences' => $data->presences,
                 'buddies' => array_values($rtBuddies),
                 'rooms' => array_values($rtRooms),
                 'new_messages' => $offlineMessages,
