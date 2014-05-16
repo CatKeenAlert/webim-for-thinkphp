@@ -444,7 +444,7 @@ EOF;
 			exit("Nick is Null");
         }
         //find persist room 
-        $room = $this->findRoom($this->model, $roomId);
+        $room = $this->findRoom($this->models['room'], $roomId);
         if(!$room) {
             //create temporary room
             $room = $this->models['room']->insert(array(

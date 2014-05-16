@@ -27,13 +27,13 @@ class HistoryModel extends Model {
 	}
 
 	public function clear($uid, $with) {
-		$this->where("from='$uid' and to='$with'")->save( array( "fromdel" => 1, "type" => "chat" ) );
-		$this->where("to='$uid' and from='$with'")->save( array( "todel" => 1, "type" => "chat" ) );
+		$this->where("`from`='$uid' and `to`='$with'")->save( array( "fromdel" => 1, "type" => "chat" ) );
+		$this->where("`to`='$uid' and `from`='$with'")->save( array( "todel" => 1, "type" => "chat" ) );
 		$this->where("todel=1 AND fromdel=1")->delete();
 	}
 
 	public function offlineReaded($uid) {
-		$this->where("to='$uid' and send=0")->save(array("send" => 1));
+		$this->where("`to`='$uid' and send=0")->save(array("send" => 1));
 	}
 
     private function _toObj($v) { return (object)$v; }
