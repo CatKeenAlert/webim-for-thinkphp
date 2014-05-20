@@ -51,6 +51,7 @@ class VisitorModel extends Model {
         $rows = $this->where("name in ('{$vids}')")->select();
         $visitors = array();
         foreach($rows as $v) {
+            $v = (object)$v,
             $status = $v->location;
             if( $v->ipaddr ) $status = $status . '(' . $v->ipaddr .')';
             $visitors[] = (object)array(
