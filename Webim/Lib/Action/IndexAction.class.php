@@ -304,7 +304,7 @@ EOF;
         }
         $buddies = array_merge(
             $this->plugin->buddiesByIds($uid, $uids),
-            $this->model['visitor']->visitorsByIds($vids)
+            $this->models['visitor']->visitorsByIds($vids)
         );
         $buddyIds = array_map(array($this, 'buddyId'), $buddies);
         $presences = $this->client->presences($buddyIds);
