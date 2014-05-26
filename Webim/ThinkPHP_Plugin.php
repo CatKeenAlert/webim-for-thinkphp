@@ -62,7 +62,7 @@ class ThinkPHP_Plugin {
 
 		return (object)array(
             'id' => $uid,
-            'nick' => preg_replace('/uid/', 'user', $uid),
+            'nick' => 'user' . $uid,
             'presence' => 'online',
             'show' => "available",
             'pic_url' => WEBIM_IMAGE('male.png'),
@@ -94,7 +94,7 @@ class ThinkPHP_Plugin {
 	 */
 	public function buddies($uid) {
         //TODO: DEMO Code
-        return array_map( array($this, '_buddy'), range(1, 10) );
+        return array_map( array($this, '_buddy'),  range(1, 10));
 	}
 
 	/*
@@ -115,7 +115,7 @@ class ThinkPHP_Plugin {
      */
     private function _buddy($id) {
         return (object) array(
-            'id' => 'uid' . $id,
+            'id' => "$id",
             'group' => 'friend',
             'nick' => 'user'.$id,
             'presence' => 'offline',
