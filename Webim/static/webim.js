@@ -1,12 +1,12 @@
 /*!
- * Webim v5.4
+ * Webim v5.5
  * http://nextalk.im/
  *
  * Copyright (c) 2014 Arron
  * Released under the MIT, BSD, and GPL Licenses.
  *
- * Date: Sat Apr 5 10:22:27 2014 +0800
- * Commit: 62756690a8b3ef65c198cd8ea9ce651b348cfcd9
+ * Date: Fri May 23 18:01:08 2014 +0800
+ * Commit: ee2a1e4b0f871eec9671603e35f4023d21b51e3a
  */
 (function(window, document, undefined){
 
@@ -438,7 +438,14 @@ function ajax( origSettings ) {
 			}
 		}
 		function create() {
-			var doc = win.document;
+            var doc;
+            try{
+                //“Access is denied” when set `document.domain=""`
+                //http://stackoverflow.com/questions/1886547/access-is-denied-javascript-error-when-trying-to-access-the-document-object-of
+                doc = win.document
+            } catch(e){
+                doc = window.document
+            };
 			head = head || doc.getElementsByTagName("head")[0] || doc.documentElement;
 			script = doc.createElement("script");
 			if ( s.scriptCharset ) {
@@ -1291,11 +1298,14 @@ extend(webim.prototype, {
 				show: 'unavailable'
 			}
 		};
+        self.models = {}
+
 
 		ajax.settings.dataType = options.jsonp ? "jsonp" : "json";
 
 		self.status = new webim.status();
 		self.setting = new webim.setting();
+        self.models['presence'] = new webim.presence();
 		self.buddy = new webim.buddy();
 		self.room = new webim.room(null, self.data );
 		self.history = new webim.history(null, self.data );
@@ -1331,14 +1341,28 @@ extend(webim.prototype, {
 		self.trigger( "beforeOnline", [ post_data ] );
 	},
 	_go: function() {
-		var self = this, data = self.data, history = self.history, buddy = self.buddy, room = self.room;
+		var self = this, data = self.data, history = self.history, buddy = self.buddy, room = self.room, presence = self.models['presence'];
 		self.state = webim.ONLINE;
 		history.options.userInfo = data.user;
 		var ids = [];
+        //buddies
 		each( data.buddies, function(n, v) {
 			history.init( "chat", v.id, v.history );
 		});
 		buddy.set( data.buddies );
+
+        //added in version 5.5
+        //presences
+        if(data.presences) { 
+            presence.set(data.presences); 
+        } else {
+            presence.set(map(data.buddies, function(b) { 
+                var p = {};
+                p[b.id] = b.show;
+                return p; 
+            }));
+        }
+
 		//rooms
 		each( data.rooms, function(n, v) {
 			history.init( "grpchat", v.id, v.history );
@@ -1378,6 +1402,7 @@ extend(webim.prototype, {
 		self.data.user.presence = "offline";
 		self.data.user.show = "unavailable";
 		self.buddy.clear();
+        self.models['presence'].clear();
 		self.room.clear();
 		self.history.clean();
 		self.trigger("offline", [type, msg] );
@@ -1391,6 +1416,7 @@ extend(webim.prototype, {
 		  , setting = self.setting
 		  , history = self.history
 		  , buddy = self.buddy
+          , presence = self.models['presence']
 		  , room = self.room;
 
 		self.bind( "message", function( e, data ) {
@@ -1592,6 +1618,7 @@ extend(webim.prototype, {
 function idsArray( ids ) {
 	return ids && ids.split ? ids.split( "," ) : ( isArray( ids ) ? ids : ( parseInt( ids ) ? [ parseInt( ids ) ] : [] ) );
 }
+
 function model( name, defaults, proto ) {
 	function m( data, options ) {
 		var self = this;
@@ -1619,7 +1646,7 @@ function route( ob, val ) {
 window.webim = webim;
 
 extend( webim, {
-	version: "5.4",
+	version: "5.5",
 	defaults:{
 	},
 	log: log,
@@ -1884,6 +1911,46 @@ model( "buddy", {
 		self.options.active && self.complete();
 	}
 } );
+/**
+* presence //联系人
+*/
+
+model( "presence", {
+}, {
+
+    _init: function() {
+        var self = this;
+        self.data = self.data || {};
+        self.set( self.data );
+    },
+
+    get: function(id) {
+        return this.data[id];     
+    },
+
+    set: function(data) {
+        var self = this;
+        var status = {};
+        for(var id in data) {
+            var show = data[id], presence = "online";
+            if(show  == "unavailable" || show == "invisible") {
+                presence = "offline";
+            }
+            status[presence] = status[presence] || [];
+            status[presence].push({id: id, show: show});
+        }
+        for( var key in status ) {
+            self.trigger(key, [status[key]]);
+        }
+    },
+
+    clear: function() {
+        var self = this;
+        self.data = [];      
+    }
+
+});
+
 /*
 * room
 *
@@ -2129,7 +2196,8 @@ model("history", {
 			for (var id in cache[type]){
 				var v = cache[type][id];
 				if(data[type][id]){
-					data[type][id] = data[type][id].concat(v);
+                    //data[type][id] = data[type][id].concat(v);
+                    data[type][id] = [].concat(data[type][id]).concat(v); //Fix memory released in ie9
 					self._triggerMsg(type, id, v);
 				}else{
 					self.load(type, id);
@@ -2198,8 +2266,8 @@ model("history", {
  * Copyright (c) 2013 Arron
  * Released under the MIT, BSD, and GPL Licenses.
  *
- * Date: Fri Apr 18 16:33:45 2014 +0800
- * Commit: f624aa19f33d55e469361fbc5615a7d8e6f99c88
+ * Date: Wed May 21 18:04:58 2014 +0800
+ * Commit: 3dbd3f28a3772e87189315c1ab25c53bc39dc5a4
  */
 (function(window,document,undefined){
 
@@ -3217,7 +3285,8 @@ widget("window", {
 
 		each(["minimize", "maximize", "close", "tabClose"], function(n,v){
 			addEvent($[v], "click", function(e){
-				if(!this.disabled)self[v]();
+				//Different the element `disabled` attr
+				if(!this.disable)self[v]();
 				stop(e);
 			});
 			addEvent($[v],"mousedown",stop);
@@ -3596,7 +3665,7 @@ widget("layout",{
 	buildUI: function(e){
 		var self = this, $ = self.$;
 		//var w = self.element.width() - $.shortcut.outerWidth() - $.widgets.outerWidth() - 55;
-		var w = (windowWidth() - 45) - $.shortcut.offsetWidth - $.widgets.offsetWidth - 70;
+		var w = (windowWidth() - 45) - $.shortcut.offsetWidth - $.widgets.offsetWidth - 70 - 105;
 		self.maxVisibleTabs = parseInt(w / self.tabWidth);
 		self._fitUI();
 		if( !self.options.disableResize )
@@ -4176,38 +4245,39 @@ widget("emot", {
 });
 extend(webimUI.emot, {
         emots: [
-                {"t":"smile","src":"smile.png","q":[":)"]},
-                {"t":"smile_big","src":"smile-big.png","q":[":d",":-d",":D",":-D"]},
-                {"t":"sad","src":"sad.png","q":[":(",":-("]},
-                {"t":"wink","src":"wink.png","q":[";)",";-)"]},
-                {"t":"tongue","src":"tongue.png","q":[":p",":-p",":P",":-P"]},
-                {"t":"shock","src":"shock.png","q":["=-O","=-o"]},
-                {"t":"kiss","src":"kiss.png","q":[":-*"]},
-                {"t":"glasses_cool","src":"glasses-cool.png","q":["8-)"]},
-                {"t":"embarrassed","src":"embarrassed.png","q":[":-["]},
-                {"t":"crying","src":"crying.png","q":[":'("]},
-                {"t":"thinking","src":"thinking.png","q":[":-\/",":-\\"]},
-                {"t":"angel","src":"angel.png","q":["O:-)","o:-)"]},
-                {"t":"shut_mouth","src":"shut-mouth.png","q":[":-X",":-x"]},
-                {"t":"moneymouth","src":"moneymouth.png","q":[":-$"]},
-                {"t":"foot_in_mouth","src":"foot-in-mouth.png","q":[":-!"]},
-                {"t":"shout","src":"shout.png","q":[">:o",">:O"]}
+                {"t":"smile","src":"smile","q":[":)"]},
+                {"t":"smile_big","src":"smile-big","q":[":d",":-d",":D",":-D"]},
+                {"t":"sad","src":"sad","q":[":(",":-("]},
+                {"t":"wink","src":"wink","q":[";)",";-)"]},
+                {"t":"tongue","src":"tongue","q":[":p",":-p",":P",":-P"]},
+                {"t":"shock","src":"shock","q":["=-O","=-o"]},
+                {"t":"kiss","src":"kiss","q":[":-*"]},
+                {"t":"glasses_cool","src":"glasses-cool","q":["8-)"]},
+                {"t":"embarrassed","src":"embarrassed","q":[":-["]},
+                {"t":"crying","src":"crying","q":[":'("]},
+                {"t":"thinking","src":"thinking","q":[":-\/",":-\\"]},
+                {"t":"angel","src":"angel","q":["O:-)","o:-)"]},
+                {"t":"shut_mouth","src":"shut-mouth","q":[":-X",":-x"]},
+                {"t":"moneymouth","src":"moneymouth","q":[":-$"]},
+                {"t":"foot_in_mouth","src":"foot-in-mouth","q":[":-!"]},
+                {"t":"shout","src":"shout","q":[">:o",">:O"]}
         ],
         init: function(options){
             var emot = webim.ui.emot, q = emot._q = {};
             options = extend({
-                dir: 'webim/static/emot/default'
+                dir: 'webim/static/emot/default',
+                ext: 'png'
             }, options);
             if (options.emots) 
                 emot.emots = options.emots;
             var dir = options.dir + "/";
+            var ext = options.ext;
             each(emot.emots, function(key, v){
                 if (v && v.src) 
-                    v.src = dir + v.src;
+                    v.src = dir + v.src + '.' + ext;
                 v && v.q &&
                 each(v.q, function(n, val){
                     q[val] = key;
-
                 });
 
             });
@@ -4423,9 +4493,6 @@ widget("chat",{
 	<div id=":tools" class="webim-chat-tools ui-helper-clearfix ui-state-default"></div>\
 	<table class="webim-chat-t" cellSpacing="0"> \
 	<tr> \
-	<td style="vertical-align:top;"> \
-	<em class="webim-icon webim-icon-chat-edit"></em>\
-	</td> \
 	<td style="vertical-align:top;width:100%;"> \
 	<div class="webim-chat-input-wrap">\
 	<textarea id=":input" class="webim-chat-input webim-gray ui-widget-content"><%=input notice%></textarea> \
@@ -5416,7 +5483,7 @@ self.trigger("offline");
 		var self = this, size = self.size, win = self.window, empty = self.$.empty, element = self.element;
         var ol_sz = 0;
         each(self.presences, function(id, p) { if(p.o) ol_sz++; });
-		win && win.title(self.options.title + "(" + ol_sz + "/" + (size ? size : "0") + ")");
+		win && win.title(self.options.title + "[" + ol_sz + "/" + (size ? size : "0") + "]");
 		if(!size){
 			show(empty);
 		}else{
@@ -5433,12 +5500,12 @@ self.trigger("offline");
     groupTitleCount: function(grp) {
         var self = this, oncnt = 0;
         if(grp.name == i18n("online_group")) {
-            grp.title.innerHTML = grp.name + "(" + grp.count+")";
+            grp.title.innerHTML = grp.name + "[" + grp.count+"]";
         } else {
             each(self.presences, function(id, p) { 
                 if(p.o && p.g == grp.name) oncnt++; 
             });
-            grp.title.innerHTML = grp.name + "(" + oncnt + "/" + grp.count+")";
+            grp.title.innerHTML = grp.name + "[" + oncnt + "/" + grp.count+"]";
         }
     },
 
@@ -6305,10 +6372,10 @@ app("chatbtn", function(options){
 			chat && chat.insert( window.location.href );
 		}
 	});
-	var grepVisible = function(a){ return a.show != "invisible" && a.presence == "online"};
+	var grepVisible = function(a){ return a.show != "invisible" && a.show != "unavailable"};
 	var grepInvisible = function(a){ return a.show == "invisible" };
-	im.buddy.bind("online",function(e, data){
-		chatbtn.on(grep(data, grepVisible));
+	im.models['presence'].bind("online",function(e, data){
+		chatbtn.on(data);
 	}).bind("update",function(e, data){
 		chatbtn.on(grep(data, grepVisible));
 		chatbtn.off(grep(data, grepInvisible));
@@ -6548,4 +6615,386 @@ widget("notification",{
 	destroy: function(){
 	}
 });
+app("layout.popup", function( options ) {
+	webimUI.buddy && (webimUI.buddy.defaults.highlightable = true);
+	webimUI.room && (webimUI.room.defaults.highlightable = true);
+	webimUI.chat && (webimUI.chat.defaults.simple = true);
+
+	options = options || {};
+	var ui = this
+	  , im = ui.im
+	  , __status = false
+	  , buddy = im.buddy
+	  , history = im.history
+	  , status = im.status
+	  , setting = im.setting
+	  , room = im.room;
+
+	var layout = new webimUI["layout.popup"]( null,extend({
+	}, options, {
+		ui: ui
+	}) );
+
+	(function(){
+		//Update chat status
+		im.bind("online",function(e, data){
+			layout.options.user = data.user;
+			layout.updateAllChat();
+		}).bind("offline", function(){
+			layout.updateAllChat();
+		});
+	})();
+
+	(function(){
+		//Cache buddy for visitor who has not information at server.
+		im.bind("beforeOnline",function(e, params){
+			extend(params, {
+				buddy_ids: status.get("_cacheBuddy"),
+				room_ids: "",
+				show: "available"
+			});
+		});
+
+		var mapper = function(a){ return a && a.id };
+		var cacheBuddy = function(e){
+			var data = map( buddy.all(true), mapper );
+			status.set("_cacheBuddy", data.join(","));
+			layout.updateAllChat();
+		};
+		buddy.bind("online", cacheBuddy).bind("offline", cacheBuddy);
+	})();
+
+	(function(){
+		//room  events
+		room.bind("memberAdded", function(e, room_id, info){
+			var c = layout.chat("room", room_id);
+			c && c.addMember(info.id, info.nick, info.presence == "offline");
+		}).bind("memberRemoved", function(e, room_id, info){
+			var c = layout.chat("room", room_id);
+			c && c.removeMember(info.id, info.nick);
+		});
+	})();
+
+	(function(){
+		//history events
+		history.bind("chat", function( e, id, data){
+			var c = layout.chat("chat", id), count = "+" + data.length;
+			if(c){
+				c.history.add(data);
+			}
+		});
+		history.bind("grpchat", function(e, id, data){
+			var c = layout.chat("grpchat", id), count = "+" + data.length;
+			if(c){
+				c.history.add(data);
+			}
+		});
+		history.bind("clear", function(e, type, id){
+			var c = layout.chat(type, id);
+			c && c.history.clear();
+		});
+	})();
+
+	//all ready.
+	//message
+	im.bind("message", function(e, data){
+		var show = false,
+			l = data.length, d, uid = im.data.user.id, id, c, count = "+1";
+		for(var i = 0; i < l; i++){
+			d = data[i];
+			id = d["id"], type = d["type"] === "chat" ? "buddy" : "room";
+			c = layout.chat(type, id);
+			c && c.status("");//clear status
+			if(!c){	
+				var widget = layout.widget(type);
+				widget && widget.showCount( id, count );
+				layout.notifyUser( type, count );
+			}
+			if(d.from != uid)show = true;
+		}
+		if(show){
+			sound.play('msg');
+			titleShow(i18n("new message"), 5);
+		}
+	});
+
+	im.bind("status",function(e, data){
+		each(data,function(n,msg){
+			var userId = im.data.user.id;
+			var id = msg['from'];
+			if (userId != msg.to && userId != msg.from) {
+				id = msg.to; //群消息
+				var nick = msg.nick;
+			}else{
+				var c = layout.chat("buddy", id);
+				c && c.status(msg['show']);
+			}
+		});
+	});
+
+
+	return layout;
+
+});
+
+widget("layout.popup",{
+	template: '<div id="webim" class="webim webim-state-ready">\
+	<div class="webim-preload ui-helper-hidden-accessible">\
+	<div id="webim-flashlib-c">\
+	</div>\
+	</div>\
+	<div id=":layout" class="webim-layout webim-popup ui-helper-clearfix"><div id=":left" class="webim-popup-left"></div><div id=":right" class="webim-popup-right"></div>\
+	<div id=":widgets" class="webim-widgets ui-widget-content ui-helper-clearfix"><div class="webim-layout-bg ui-state-default ui-toolbar"></div></div>\
+	</div>\
+	</div>',
+	template_tab: '<div class="webim-window-tab-wrap">\
+	<div id=":tab" class="webim-window-tab ui-state-default">\
+	<div class="webim-window-tab-inner">\
+	<div id=":tabTip" class="webim-window-tab-tip">\
+	<strong id=":tabTipC"><%=title%></strong>\
+	</div>\
+	<div id=":tabCount" class="webim-window-tab-count">\
+	0\
+	</div>\
+	<em id=":tabIcon" class="webim-icon webim-icon-<%=icon%>"></em>\
+	</div>\
+	</div>\
+	</div>'
+},{
+	_init: function(element, options){
+		var self = this, options = self.options;
+		extend(self,{
+			widgets: {}
+		  , widgetIds: []
+		  , tabs: {}
+		  , activeTabId : null
+		});
+		this.win = new webimUI.window(null, {
+			closeable: false,
+			minimizable: false,
+			isMinimize: false
+		});
+	},
+	buildUI: function(e){
+		var self = this
+		  , win = self.win;
+		win.$.window.appendChild( self.$.widgets );
+		self.$.left.appendChild( win.element );
+	},
+	widget:function(name){
+		return this.widgets[name];
+	},
+	addWidget: function(widget, options){
+		var self = this
+		  , win = self.win
+		  , name = widget.name;
+		widget.window = win;
+		self.widgetIds.push( name );
+		self.widgets[ widget.name ] = widget;
+
+		hide( widget.element );
+
+		win.$.content.appendChild( widget.element );
+		self._createTab( name, options );
+		if( self.widgetIds.length == 1 ) {
+			self._activeTab( name );
+		}
+	},
+	_createTab: function( name, options ) {
+		var self = this;
+		var el = createElement( tpl( self.options.template_tab, options ) ); 
+		el.$ = mapElements( el );
+		var tab = el.$.tab;
+		addEvent(tab, "click", function(e){
+			self._activeTab( name );
+			stopPropagation(e);
+			preventDefault(e);
+		});
+		addEvent(tab,"mouseover",function(){
+			addClass(this, "ui-state-hover");
+			removeClass(this, "ui-state-default");
+		});
+		addEvent(tab,"mouseout",function(){
+			removeClass(this, "ui-state-hover");
+			this.className.indexOf("ui-state-") == -1 && addClass(this, "ui-state-default");
+		});
+		disableSelection(tab);
+		self.$.widgets.appendChild( el );
+		self.tabs[ name ] = el;
+	},
+	_activeTab: function( name ) {
+		var self = this
+		  , tabs = self.tabs;
+		for (var i = self.widgetIds.length - 1; i >= 0; i--) {
+			var _name = self.widgetIds[i]
+			  , widget = self.widgets[_name]
+			  , tab = tabs[_name].$.tab;
+			if( _name == name ) {
+				show( widget.element );
+				addClass( tab, "ui-state-active" );
+				removeClass( tab, "ui-state-default" );
+				_countDisplay(tabs[_name].$.tabCount, 0);
+			} else if( _name == self.activeTabId ) {
+				hide( widget.element );
+				addClass( tab, "ui-state-default" );
+				removeClass( tab, "ui-state-active" );
+			}
+		};
+		self.activeTabId = name;
+	},
+	notifyUser: function(name, count){
+		var self = this;
+		if( name != this.activeTabId ) {
+			var tab = self.tabs[name];
+			if( tab ) {
+				_countDisplay(tab.$.tabCount, count);
+			}
+		}
+	},
+	focusChat: function(type, id){
+	},
+	chat:function(type, id){
+		if( !type || ( this.__chat && this.__chat.__id == _id_with_type(type, id) ) )
+			return this.__chat;
+		return null;
+	},
+	updateChat: function(type, data){
+		var chat = this.chat();
+		chat && chat.update();
+	},
+	updateAllChat:function(){
+		this.updateChat();
+	},
+	addChat: function(type, id, chatOptions, winOptions, nick){
+		type = _tr_type(type);
+		var self = this;
+		if ( self.__chat )
+			remove( self.__chat.window.element );
+
+		var widget = self.widget( type == "room" ? "buddy" : "room" );
+		widget && widget.active(null);
+
+		widget = self.widget( type );
+		widget && widget.active(id);
+
+		var win = new webimUI.window(null, extend({
+			//closeable: false,
+			minimizable: false
+		}, winOptions )).bind("close", function(){
+			//Remove chat
+			self.__chat = null;
+			widget && widget.active();
+		});
+
+		var chat = self.__chat = self.options.ui.addApp("chat", extend(
+			{
+			}, self.options.ui.options[type + "ChatOptions"], {
+				id: id, 
+				type: type, 
+				nick: nick, 
+				winOptions: winOptions
+			}, chatOptions 
+		));
+		chat.__id = _id_with_type(type, id);
+		chat.setWindow( win );
+		self.$.right.appendChild( win.element );
+	}
+});
+
+
+/* 
+ * ui.visitorstatus
+ *
+ * Show visitor's from site and location in status.
+ * Auto send from site and location when first message if changed.
+ *
+ * options:
+ *
+ * methods:
+ * 
+ * events: 
+ * 
+ */
+
+app("visitorstatus", function( options ){
+	var ui = this, im = ui.im, status = im.status;
+	var last_from = status.get("v_f"),
+		last_location = status.get("v_l"),
+		current_from = document.referrer,
+		current_location = document.location.href,
+		location_host = document.location.host;
+	if (current_from && current_from != last_from){
+		ex = /\/\/([^\/]+)/.exec(current_from);
+		var from_host = ex && ex[1];
+		if(from_host && from_host != location_host){
+			//Change from.
+			status.set("v_f", current_from);
+		}else{
+			current_from = last_from;
+		}
+	}else{
+		current_from = last_from;
+	}
+	if (current_location != last_location){
+		status.set("v_l", current_location);
+	}
+
+	var visitorstatus = current_location + ( current_from ? (" | " + i18n("from") + " " + current_from) : "");
+	var current_sent = {};
+	im.bind( "sendMessage", function( e, msg ){
+		if( !msg.to ) return;
+		var key = "v_to_" + msg.to;
+		//Send once.
+		if ( !current_sent[key] ){
+			current_sent[key] = true;
+			var body = "", sent = im.status.get(key);
+			if( !sent || current_location != last_location || current_from != last_from ){
+				im.status.set(key, 1);
+				body = i18n("location") + ": " + current_location;
+				if ( current_from && ( !sent || current_from != last_from )){
+					body += " \n " + i18n("from") + ": " + current_from;
+				}
+			}
+			if( body ){
+				im.sendMessage(extend({}, msg, {"body": body, "transient": true}));
+			}
+		}
+	})
+		.bind( "beforeOnline", function(e, param) {
+			param.visitorstatus = visitorstatus;
+			param.visitor_loc = current_location;
+			param.visitor_from = current_from ? current_from : "";
+		});
+});
+
+/* 
+ * ui.logmsg
+ *
+ * Log user message to db.
+ *
+ * options:
+ *
+ * methods:
+ * 
+ * events: 
+ * 
+ */
+
+app("logmsg", function(options){
+	var ui = this, im = ui.im;
+	im.bind("message",function(e, messages){
+		for (var i = 0; i < messages.length; i++) {
+			var msg = messages[i];
+			msg.ticket = im.data.connection.ticket;
+			msg.to_nick = im.data.user.nick;
+			ajax( {
+				type: "get",
+				url: route( "logmsg" ),
+				cache: false,
+				data:msg
+			} );
+		};
+	});
+});
+
 })(window, document);
