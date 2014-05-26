@@ -106,7 +106,7 @@ class IndexAction extends Action {
     public function index(){
         global $_SESSION;
         $uid = $this->_param('uid');
-        if($uid) { $_SESSION['uid'] = 'uid'. $uid; }
+        if($uid) { $_SESSION['uid'] = $uid; }
 		$this->display();
     }
 
@@ -252,17 +252,12 @@ EOF;
 			$this->models['history']->offlineReaded($uid);
 
             if($show) $this->user->show = $show;
-
-            $this->ajaxReturn(array(
-                'success' => true,
-                'connection' => $data->connection,
-                'user' => $this->user,
-                'presences' => $data->presences,
-                'buddies' => array_values($rtBuddies),
-                'rooms' => array_values($rtRooms),
-                'new_messages' => $offlineMessages,
-                'server_time' => microtime(true) * 1000
-            ), 'JSON');
+            $data['user'] = $this->user;
+            $data['buddies'] = array_values($rtBuddies);
+            $data['rooms'] = array_values($rtRooms);
+            $data['new_messages'] = $offlineMessages;
+            $data['server_time'] = microtime(true) * 1000;
+            $this->ajaxReturn($data, 'JSON');
 		} else {
 			$this->ajaxReturn(array ( 
 				'success' => false,
