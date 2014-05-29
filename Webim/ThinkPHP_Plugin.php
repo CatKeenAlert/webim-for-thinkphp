@@ -200,7 +200,7 @@ class ThinkPHP_Plugin {
      */
     private function _member($id) {
         return (object)array(
-            'id' => 'uid' . $id,
+            'id' => "$id",
             'nick' => 'user'.$id
         ); 
     }

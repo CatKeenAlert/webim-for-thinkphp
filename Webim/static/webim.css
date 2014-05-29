@@ -5,8 +5,8 @@
  * Copyright (c) 2013 Arron
  * Released under the MIT, BSD, and GPL Licenses.
  *
- * Date: Wed May 21 18:04:58 2014 +0800
- * Commit: 3dbd3f28a3772e87189315c1ab25c53bc39dc5a4
+ * Date: Thu May 29 22:41:55 2014 +0800
+ * Commit: 346edc1d0c1bf3d294553d523258c9c80e08c7d1
  */
 
 body {
@@ -464,7 +464,7 @@ a .webim-icon, a .ui-icon{
         bottom: 2.20em;
         z-index: 5;
         right: 0;
-        width: 24em; /*20em*/
+        width: 20em; /*20em*/
 }
 
 .webim-layout .webim-window-content {
@@ -520,7 +520,7 @@ a .webim-icon, a .ui-icon{
 }
 
 .webim-layout .webim-panels .webim-window-normal .webim-window-tab {
-    width: 23.8em !important; /*19.85em*/
+    width: 19.85em !important; /*19.85em*/
 }
 
 .webim-layout .webim-buddy-window .webim-window-tab{
@@ -755,25 +755,25 @@ a .webim-icon, a .ui-icon{
 
 .webim .webim-member{
 	margin-top:  -1px;
-	height: 16em;
-	width: 7em;
-	left: -7.2em;
+	height: 20em; /*16em*/
+	width: 8em;
+	left: -8.2em;
 	position: absolute;
 }
 
 .webim .webim-chat .webim-member .webim-bgiframe{
 	top: -.1em;
 	left: -.1em;
-	width: 7.2em;
-	height: 16.2em;
+	width: 8.2em;
+	height: 20.2em;
 }
 .webim .webim-member h4{
 	height: 1.5em;
 	padding: .2em .3em 0;
 }
 .webim .webim-member ul{
-	height: 14.3em;
-	width: 7em;
+	height: 18.3em;
+	width: 8em;
 	position: absolute;
 	overflow-y:auto;
 	overflow-x:hidden;
