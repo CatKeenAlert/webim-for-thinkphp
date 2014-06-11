@@ -252,6 +252,8 @@ EOF;
 			$this->models['history']->offlineReaded($uid);
 
             if($show) $this->user->show = $show;
+
+            $data = (array)$data;
             $data['user'] = $this->user;
             $data['buddies'] = array_values($rtBuddies);
             $data['rooms'] = array_values($rtRooms);
