@@ -455,7 +455,7 @@ EOF;
         $this->models['member']->join($roomId, $uid, $this->user->nick);
         //invite members
         $members = explode(",", $this->_param('members'));
-        $members = $this->plugin->buddiesByIds($members);
+        $members = $this->plugin->buddiesByIds($uid, $members);
         $this->models['room']->invite($roomId, $members);
         //send invite message to members
         foreach($members as $m) {
