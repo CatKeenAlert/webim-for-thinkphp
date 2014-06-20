@@ -146,8 +146,8 @@ class ThinkPHP_Plugin {
 	public function rooms($uid) {
         //TODO: DEMO CODE
 		$room = (object)array(
-			'id' => 'room1',
-            'name' => 'room1',
+			'id' => 'room',
+            'name' => 'room',
 			'nick' => 'Room',
 			'url' => "#",
 			'avatar' => WEBIM_IMAGE('room.png'),
@@ -171,11 +171,11 @@ class ThinkPHP_Plugin {
 	public function roomsByIds($uid, $ids) {
         $rooms = array();
         foreach($ids as $id) {
-            if($id === 'room1') { 
+            if($id === 'room') { 
                 $rooms[] = (object)array(
                     'id' => $id,
                     'name' => $id,
-                    'nick' => 'room'.$id,
+                    'nick' => 'Room',
                     'url' => "#",
                     'avatar' => WEBIM_IMAGE('room.png')
                 );

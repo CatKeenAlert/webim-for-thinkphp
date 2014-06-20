@@ -103,7 +103,7 @@ class IndexAction extends Action {
         );
 	}
 
-    public function index(){
+    public function index() {
         global $_SESSION;
         $uid = $this->_param('uid');
         if($uid) { $_SESSION['uid'] = $uid; }
