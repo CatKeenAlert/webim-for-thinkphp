@@ -65,7 +65,7 @@ class ThinkPHP_Plugin {
             'nick' => 'user' . $uid,
             'presence' => 'online',
             'show' => "available",
-            'pic_url' => WEBIM_IMAGE('male.png'),
+            'avatar' => WEBIM_IMAGE('male.png'),
             'url' => "#",
             'role' => 'user',
             'status' => "",
@@ -84,7 +84,7 @@ class ThinkPHP_Plugin {
 	 * 	id:         uid
 	 * 	uid:        uid
 	 *	nick:       nick
-	 *	pic_url:    url of photo
+	 *	avatar:    url of photo
      *	presence:   online | offline
 	 *	show:       available | unavailable | away | busy | hidden
 	 *  url:        url of home page of buddy 
@@ -121,7 +121,7 @@ class ThinkPHP_Plugin {
             'presence' => 'offline',
             'show' => 'unavailable',
             'status' => '#',
-            'pic_url' => WEBIM_IMAGE('male.png')
+            'avatar' => WEBIM_IMAGE('male.png')
         );
     }
 
@@ -137,7 +137,7 @@ class ThinkPHP_Plugin {
 	 *	id:		    Room ID,
 	 *	nick:	    Room Nick
 	 *	url:	    Home page of room
-	 *	pic_url:    Pic of Room
+	 *	avatar:    Pic of Room
 	 *	status:     Room status 
 	 *	count:      count of online members
 	 *	all_count:  count of all members
@@ -150,7 +150,7 @@ class ThinkPHP_Plugin {
             'name' => 'room1',
 			'nick' => 'Room',
 			'url' => "#",
-			'pic_url' => WEBIM_IMAGE('room.png'),
+			'avatar' => WEBIM_IMAGE('room.png'),
 			'status' => "Room",
 			'blocked' => false,
             'temporary' => false
@@ -177,7 +177,7 @@ class ThinkPHP_Plugin {
                     'name' => $id,
                     'nick' => 'room'.$id,
                     'url' => "#",
-                    'pic_url' => WEBIM_IMAGE('room.png')
+                    'avatar' => WEBIM_IMAGE('room.png')
                 );
             }
         }

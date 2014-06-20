@@ -12,12 +12,12 @@ return array(
 
 	//IM配置
 	'IMC' => array(
-		'version'	=> '5.4.2',		//IM版本, 当前为5.4
+		'version'	=> '5.5',		//IM版本, 当前为5.4
 		'debug'     => true,		//DEBUG模式
 		'isopen'	=> true,		//开启webim
 		'domain' 	=> 'localhost',	//消息服务器通信域名
 		'apikey'	=> 'public',	//消息服务器通信APIKEY
-		'server'    => 't.nextalk.im:8000',//im服务器
+		'server'    => array('t.nextalk.im:8080'),//IM服务器
 		'theme'		=> 'base',		//界面主题，根据webim/static/themes/目录内容选择
 		'local'		=> 'zh-CN',		//本地语言，扩展请修改webim/static/i18n/内容
 		'emot'		=> 'default',	//表情主题

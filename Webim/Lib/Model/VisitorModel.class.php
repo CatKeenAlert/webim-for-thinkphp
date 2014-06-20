@@ -35,7 +35,7 @@ class VisitorModel extends Model {
             'group' => "visitor",
             'presence' => 'online',
             'show' => "available",
-            'pic_url' => WEBIM_IMAGE('male.png'),
+            'avatar' => WEBIM_IMAGE('male.png'),
             'role' => 'visitor',
             'url' => "#",
             'status' => "",
@@ -59,7 +59,7 @@ class VisitorModel extends Model {
                 "nick" => "v".substr($v->name, 4), //remove vid:
                 "group" => "visitor",
                 "url" => "#",
-                "pic_url" => WEBIM_IMAGE('male.png'),
+                "avatar" => WEBIM_IMAGE('male.png'),
                 "status" => $status, 
             );
         }

@@ -7,7 +7,7 @@
  * @copyright   2014 NexTalk.IM
  * @link        http://github.com/webim/webim-for-thinkphp
  * @license     MIT LICENSE
- * @version     5.4.1
+ * @version     5.5
  * @package     WebIM
  *
  * MIT LICENSE
@@ -468,7 +468,7 @@ EOF;
             'id' => $room->name,
             'nick' => $room->nick,
             'temporary' => true,
-            'pic_url' => WEBIM_IMAGE('room.png')
+            'avatar' => WEBIM_IMAGE('room.png')
         ), 'JSON');
     }
 
@@ -493,7 +493,7 @@ EOF;
             'id' => $roomId,
             'nick' => $nick,
             'temporary' => true,
-            'pic_url' => WEBIM_IMAGE('room.png')
+            'avatar' => WEBIM_IMAGE('room.png')
         ), 'JSON');
 	}
 

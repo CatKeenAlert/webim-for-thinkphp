@@ -26,7 +26,7 @@ class RoomModel extends Model {
                'name' => $row['name'],
                'nick' => $row['nick'],
                "url" => $row['url'],
-               "pic_url" => WEBIM_IMAGE("room.png"),
+               "avatar" => WEBIM_IMAGE("room.png"),
                "status" => "",
                "temporary" => true,
                "blocked" => false
@@ -46,7 +46,7 @@ class RoomModel extends Model {
                'name' => $row['name'],
                'nick' => $row['nick'],
                "url" => $row['url'],
-               "pic_url" => WEBIM_IMAGE("room.png"),
+               "avatar" => WEBIM_IMAGE("room.png"),
                "status" => "",
                "temporary" => true,
                "blocked" => false);     
