@@ -2,6 +2,13 @@
 CHANGELOG
 =========
 
+5.5 (2014-06-20)
+------------------
+
+* online api return 'presences' to browser used by 'chatbtn' 
+* upgrade static file to 5.5 and support detach window
+* webim server cluster support
+
 5.4.3 (2014-05-06)
 ------------------
 
