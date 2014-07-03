@@ -108,7 +108,9 @@ webim.ui.i18n.store('zh-CN',{
 	"invite": "\u9080\u8bf7",
 	"visitor":"\u8bbf\u5ba2",
 	"manager":"\u7ba1\u7406\u5458",
-	"exit": "\u9000\u51fa"
+	"exit": "\u9000\u51fa",
+    "Exit Room": "\u786e\u5b9a\u8981\u9000\u51fa'{{name}}'\u8ba8\u8bba\u7ec4\u5417?",
+    "Remove Buddy": "\u786e\u5b9a\u8981\u5220\u9664\u597d\u53cb{{name}}\u5417?"
 });
 
 webim.ui.i18n.store('zh-CN',{

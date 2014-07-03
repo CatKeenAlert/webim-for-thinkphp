@@ -18,6 +18,7 @@
 		clear: path + "Index/clear_history",
 		download: path + "Index/download_history",
 		buddies: path + "Index/buddies",
+		remove_buddy: path + "Index/remove_buddy",
         //room actions
 		invite: path + "Index/invite",
 		join: path + "Index/join",

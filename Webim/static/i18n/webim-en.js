@@ -105,7 +105,9 @@ webim.ui.i18n.store('en',{
 	"discussion name input": "{{name}}'s discussion",
 	"visitor":"Visitor",
 	"manager":"Manager",
-	"exit": "Exit"
+	"exit": "Exit",
+    "Exit Room": "Are you sure to exit '{{name}}'?",
+    "Remove Buddy": "Are you sure to remove {{name}}?"
 });
 
 webim.ui.i18n.store('en',{

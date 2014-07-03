@@ -317,6 +317,15 @@ EOF;
         }
 		$this->ajaxReturn($buddies, 'JSON');
 	}
+    
+    /**
+     * Buddies by ids
+     */
+	public function remove_buddy() {
+        $uid = $this->user->id;
+		$id = $this->_param('id');
+		$this->okReturn();
+    }
 
     /**
      * Send Message
