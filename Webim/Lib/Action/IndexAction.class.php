@@ -215,7 +215,8 @@ EOF;
             $presences = $data->presences;
             foreach($buddies as $buddy) {
                 $id = $buddy->id;
-                if( isset($presences->$id) ) {
+                //fix invisible problem
+                if( isset($presences->$id) && $presences->$id != "invisible") {
                     $buddy->presence = 'online';
                     $buddy->show = $presences->$id;
                 } else {
@@ -350,9 +351,9 @@ EOF;
 				"timestamp" => $timestamp,
 			));
 		}
-		if($send == 1){
+		//if($send == 1){//Why? for invisible user as offline
 			$this->client->message(null, $to, $body, $type, $style, $timestamp);
-		}
+		//}
 		$this->okReturn();
 	}
 
