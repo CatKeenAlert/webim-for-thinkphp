@@ -75,6 +75,7 @@ class IndexAction extends Action {
 		$this->models['setting'] = D('Setting');
 		$this->models['history'] = D('History');
         $this->models['visitor'] = D('Visitor');
+        $this->models['ask'] = D('Ask');
 
 		//Plugin
 		$this->plugin = new \WebIM\ThinkPHP_Plugin();
@@ -541,7 +542,7 @@ EOF;
         $rtMembers = array();
         foreach($members as $m) {
             $id = $m->id;
-            if(isset($presences->$id)) {
+            if( isset($presences->$id) && $presences->$id != "invisible" ) {
                 $m->presence = 'online';
                 $m->show = $presences->$id;
             } else {
@@ -586,6 +587,38 @@ EOF;
 		$notifications = $this->plugin->notifications($uid);
 		$this->ajaxReturn($notifications, 'JSON');
 	}
+
+    /**
+     * Asks
+     */
+    public function asks() {
+        $uid = $this->user->id;
+		$asks = $this->models['ask']->all($uid);
+		$this->ajaxReturn($asks, 'JSON');
+    }
+
+    /**
+     * Accept Ask
+     */
+    public function accept_ask() {
+        $uid = $this->user->id;
+        $askid = $this->_param('askid');
+        //TODO: insert into buddies
+        //TODO: should send presence
+		$this->models['ask']->accept($uid, $askid);
+        $this->okReturn();
+    }
+
+    /**
+     * Reject Ask
+     */
+    public function reject_ask() {
+        $uid = $this->user->id;
+        $askid = $this->_param('askid');
+        //TODO: should send presence
+		$this->models['ask']->reject($uid, $askid);
+        $this->okReturn();
+    }
 
     /**
      * Setting
