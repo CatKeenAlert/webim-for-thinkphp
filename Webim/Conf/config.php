@@ -24,6 +24,7 @@ return array(
 		'opacity'	=> 80,			//TOOLBAR背景透明度设置
 		'visitor'	=> true, 		//支持访客聊天(默认好友为站长),开启后通过im登录无效
 		'upload'	=> false,	//是否支持文件(图片)上传
+		'robot'		=> false,   //是否支持机器人
 		'show_realname'		=> false,	//是否显示好友真实姓名
 		'show_unavailable'	=> true, //支持显示不在线用户
 		'enable_login'		=> false,	//允许未登录时显示IM，并可从im登录
