@@ -5,8 +5,8 @@
  * Copyright (c) 2013 Arron
  * Released under the MIT, BSD, and GPL Licenses.
  *
- * Date: Sun Oct 12 10:22:21 2014 +0800
- * Commit: 1f9a91e0ee210d2c01193691041513c7ddb84beb
+ * Date: Fri Dec 12 20:07:44 2014 +0800
+ * Commit: c012c57fc81abd084df95aa54b48f3515ba7153e
  */
 
 body {
@@ -466,6 +466,16 @@ a .webim-icon, a .ui-icon{
         z-index: 5;
         right: 0;
         width: 24em; /*20em*/
+}
+
+/*vsn 5.8 max window support*/
+.webim-maximized-window {
+	position: fixed !important;
+	right: 0px !important;
+	bottom: 0px !important;
+	z-index: 9999 !important;
+	width: 100% !important;
+	height: 100% !important;
 }
 
 .webim-layout .webim-window-content {
@@ -1346,4 +1356,34 @@ a .webim-icon, a .ui-icon{
 .webim-notification ul li{
         overflow: hidden;
         padding:.1em 0;
+}
+.webim-ask {
+        padding:1em .5em;
+        overflow-x: hidden;
+        overflow-y: auto;
+	max-height: 300px;
+}
+* html .webim-menu{
+	height: expression(this.offsetHeight > 300 ? 300+'px' : 'auto');
+}
+.webim-ask .webim-ask-empty{
+
+}
+.webim-ask ul {
+        list-style: none;
+}
+.webim-ask ul li {
+        overflow: hidden;
+        padding:.1em 0;
+}
+
+#webim-ask ul li .webim-button {
+    float: right;
+    margin-left: 3px;
+    position: relative;
+    z-index: 2;
+}
+
+.webim-icon-ask {
+	background-image:url(images/asknoti.png);
 }
