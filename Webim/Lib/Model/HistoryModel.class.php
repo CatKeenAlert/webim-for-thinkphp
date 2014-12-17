@@ -6,7 +6,7 @@ class HistoryModel extends Model {
 
 	public function get($uid, $with, $type='chat', $limit=30) {
 		if( $type == "chat" ) {
-			$where = "`type` = 'chat' AND ((`to`='$with' AND `from`='$uid' AND `fromdel` != 1) 
+			$where = "`type` = 'chat' AND ((`to`='$with' AND `from`='$uid' AND `fromdel` != 1)
 					 OR (`send` = 1 AND `from`='$with' AND `to`='$uid' AND `todel` != 1))";
 		} else {
 			$where = "`to`='$with' AND `type`='grpchat' AND send = 1";
@@ -40,3 +40,4 @@ class HistoryModel extends Model {
 
 }
 
+?>
