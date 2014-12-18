@@ -143,5 +143,5 @@ webim_blocked | 群组是否block
 
 作者: [Feng Lee](mailto:feng.lee@nextalk.im) 
 
-版本: 5.7 (2014/10/15)
+版本: 5.8 (2014/12/20)
 
