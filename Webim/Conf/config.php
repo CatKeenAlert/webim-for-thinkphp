@@ -12,7 +12,7 @@ return array(
 
 	//IM配置
 	'IMC' => array(
-		'version'	=> '5.5',		//IM版本, 当前为5.4
+		'version'	=> '5.8',		//IM版本
 		'debug'     => true,		//DEBUG模式
 		'isopen'	=> true,		//开启webim
 		'domain' 	=> 'localhost',	//消息服务器通信域名
@@ -31,8 +31,9 @@ return array(
 		'enable_menu'		=> false,	//隐藏工具条
 		'enable_room'		=> true,	//禁止群组聊天
         'discussion'        => true,   //临时讨论组
-		'enable_noti'		=> true,	//禁止通知
-		'enable_chatlink'	=> true,	//禁止页面名字旁边的聊天链接
+		'enable_noti'		=> true,	//通知
+		'enable_chatlink'	=> true,	//页面名字旁边的聊天链接
+		'enable_chatbtn'	=> true,	//支持聊天按钮
 		'enable_shortcut'	=> false,	//支持工具栏快捷方式
 	),
 );

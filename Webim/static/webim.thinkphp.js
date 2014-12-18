@@ -45,7 +45,8 @@
 		//layout: "layout.popup",
         layoutOptions: {
             unscalable: _IMC.is_visitor,
-            detachable: true
+            //detachable: true
+            maximizable: true
         },
 		buddyChatOptions: {
             downloadHistory: !_IMC.is_visitor,
@@ -78,7 +79,14 @@
         if( _IMC.enable_room )ui.addApp("room", { discussion: (_IMC.discussion && !_IMC.is_visitor) });
         if(_IMC.enable_noti )ui.addApp("notification");
     }
-    if(_IMC.enable_chatlink) ui.addApp("chatbtn");
+    if(_IMC.enable_chatbtn) {
+        ui.addApp("chatbtn", {
+            elmentId: null,
+            chatbox: true,
+            classRe: /webim-chatbtn/,
+            hrefRe: [/Index\/chatbox\?uid=(\d+)$/i]
+        });
+    }
     ui.addApp("setting", {"data": webim.setting.defaults.data, "copyright": true});
 	ui.render();
 	_IMC['is_login'] && im.autoOnline() && im.online();
